@@ -13,16 +13,13 @@
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
-                <a class="navbar-brand" href="#">Space Blog</a>
+                @Html.ActionLink("Space Blog", "Index", "Home", new { area = ""}, new { @class = "navbar-brand"})
             </div>
-
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Begining", "Index", "Home")</li>
@@ -31,13 +28,10 @@
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>
-
             </div>
-
-        </div>
     </nav>
 
-    <header class="intro-header" style="background-image: url('Images/home.jpg')">
+    <div class="intro-header" style="background-image: url('Images/home.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -49,7 +43,7 @@
                 </div>
             </div>
         </div>
-    </header>
+    </div>
     <hr>
 
     <div class="container body-content">
