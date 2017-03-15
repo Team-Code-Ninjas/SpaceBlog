@@ -26,5 +26,12 @@ namespace SpaceBlog.Controllers
 
             return View();
         }
+
+        public ActionResult Team()
+        {
+            ViewBag.Message = "Our Team";
+
+            return View();
+        }
     }
 }
