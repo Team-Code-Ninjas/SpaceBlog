@@ -1,0 +1,21 @@
+﻿
+@using SpaceBlog.Models;
+    @model IEnumerable<Article>
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Index</h2>
+    <table class="table">
+        <tr>
+            <th> Title</th>
+            <th> Author</th>
+        </tr>
+        @foreach(var article in Model)
+        {
+            <tr>
+                <td> @article.title</td>
+                <td> @article.Author</td> 
+            </tr>
+        }
+    </table>
