@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace SpaceBlog.Controllers
 {
@@ -30,6 +26,13 @@ namespace SpaceBlog.Controllers
         public ActionResult Team()
         {
             ViewBag.Message = "Our Team";
+
+            return View();
+        }
+
+        public ActionResult Create()
+        {
+            ViewBag.Message = "Create";
 
             return View();
         }
