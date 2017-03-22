@@ -2,7 +2,10 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="container">
+
+@Html.Partial("_JumbotronPartial")
+
+<div class="container body-content">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-preview">
@@ -15,7 +18,7 @@
                     </h3>
                 </a>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="#">Read more &raquo;</a>
+                    @Html.ActionLink(HttpUtility.HtmlDecode("Read more &raquo;"), "Team", "Home", new{ @class="btn btn-primary", @id="addressSearch" })
                 </div>
                 <p class="post-meta">Posted by @Html.ActionLink("Team Code - Ninjas", "Team", "Home") on September 24, 2017</p>
             </div>
@@ -27,7 +30,7 @@
                     </h2>
                 </a>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="#">Read more &raquo;</a>
+                    @Html.ActionLink(HttpUtility.HtmlDecode("Read more &raquo;"), "Team", "Home", new { @class = "btn btn-primary", @id = "addressSearch" })
                 </div>
                 <p class="post-meta">Posted by @Html.ActionLink("Team Code - Ninjas", "Team", "Home") on September 18, 2017</p>
             </div>
@@ -42,7 +45,7 @@
                     </h3>
                 </a>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="#">Read more &raquo;</a>
+                    @Html.ActionLink(HttpUtility.HtmlDecode("Read more &raquo;"), "Team", "Home", new { @class = "btn btn-primary", @id = "addressSearch" })
                 </div>
                 <p class="post-meta">Posted by @Html.ActionLink("Team Code - Ninjas", "Team", "Home") on August 24, 2016</p>
             </div>
@@ -57,7 +60,7 @@
                     </h3>
                 </a>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="#">Read more &raquo;</a>
+                    @Html.ActionLink(HttpUtility.HtmlDecode("Read more &raquo;"), "Team", "Home", new { @class = "btn btn-primary", @id = "addressSearch" })
                 </div>
                 <p class="post-meta">Posted by @Html.ActionLink("Team Code - Ninjas", "Team", "Home") on July 8, 2016</p>
             </div>

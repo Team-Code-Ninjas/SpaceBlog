@@ -1,8 +1,5 @@
 ﻿using SpaceBlog.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SpaceBlog.Controllers
@@ -12,10 +9,10 @@ namespace SpaceBlog.Controllers
         // GET: Article
         public ActionResult Index()
         {
-            Article[] articles = new Article[]
-            {
-                new Article {title = "exampleTitle", Author = "authorName"}
-            };
+            var db = new BlogDBContext();
+
+            var articles = db.Articles.Include("Author").ToArray();
+
             return View(articles);
         }
     }
