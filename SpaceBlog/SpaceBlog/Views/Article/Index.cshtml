@@ -14,8 +14,8 @@
         @foreach(var article in Model)
         {
             <tr>
-                <td> @article.title</td>
-                <td> @article.Author</td> 
+                <td> @article.Title</td>
+                <td> Намазано от: @article.Author.FullName</td> 
             </tr>
         }
     </table>
