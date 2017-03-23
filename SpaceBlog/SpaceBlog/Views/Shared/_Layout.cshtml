@@ -24,7 +24,6 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Articles", "Index", "Article")</li>
                     <li>@Html.ActionLink("New article", "Create", "Home")</li>
-
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -34,7 +33,9 @@
     @RenderBody()
     <hr />
     <footer>
-        <p>&copy; @DateTime.Now.Year - Team Code-Ninjas</p>
+        <div class="container">
+            <p>&copy; @DateTime.Now.Year - Team Code-Ninjas</p>
+        </div>
    </footer>
 
 
