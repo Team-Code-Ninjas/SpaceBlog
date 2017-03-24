@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Space Blog</title>
     @Styles.Render("~/Content/Site.css")
+    @Styles.Render("~/Content/font-awesome.css")
     @Styles.Render("~/Content/bootstrap.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -43,8 +44,14 @@
     <footer>
         <div class="container">
             <p>&copy; @DateTime.Now.Year - Team Code-Ninjas</p>
+            <ul class="nav navbar-nav navbar-left social">
+                <li><a href="#"><i class="fa fa-lg fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-lg fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-lg fa-google-plus"></i></a></li>
+                <li><a href="#"><i class="fa fa-lg fa-linkedin"></i></a></li>
+            </ul>
         </div>
-   </footer>
+    </footer>
 
 
     @Scripts.Render("~/bundles/jquery")
