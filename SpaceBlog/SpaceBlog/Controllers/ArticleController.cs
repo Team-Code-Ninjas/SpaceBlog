@@ -16,4 +16,4 @@ namespace SpaceBlog.Controllers
             return View(articles);
         }
     }
-}
+} 
