@@ -16,5 +16,6 @@ namespace SpaceBlog.Models
         }
 
         public virtual DbSet<Article> Articles { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
     }
 }
