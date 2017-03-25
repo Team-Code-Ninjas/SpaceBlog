@@ -1,23 +1,57 @@
-﻿
-@using SpaceBlog.Models;
-    @model IEnumerable<Article>
-    @{
-        ViewBag.Title = "Index";
-    }
+﻿@model IEnumerable<SpaceBlog.Models.Article>
+
+@{
+    ViewBag.Title = "Articles";
+}
 
 <div class="container">
-    <h2>Index</h2>
+    <h2>Articles</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
     <table class="table">
         <tr>
-            <th> Title</th>
-            <th> Author</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
         </tr>
-        @foreach (var article in Model)
+
+        @foreach (var item in Model)
         {
             <tr>
-                <td> @article.Title</td>
-                <td> Намазано от: @article.Author.FullName</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new
+       {
+           id = item.Id
+       }) |
+                    @Html.ActionLink("Details", "Details", new
+       {
+           id = item.Id
+       }) |
+                    @Html.ActionLink("Delete", "Delete", new
+       {
+           id = item.Id
+       })
+                </td>
             </tr>
         }
+
     </table>
 </div>
