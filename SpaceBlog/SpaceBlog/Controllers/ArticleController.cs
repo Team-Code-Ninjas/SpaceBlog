@@ -31,6 +31,7 @@ namespace SpaceBlog.Models
         }
 
         // GET: Articles/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -41,6 +42,7 @@ namespace SpaceBlog.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "Id,Title,Content")] Article article)
         {
             if (ModelState.IsValid)
@@ -54,6 +56,7 @@ namespace SpaceBlog.Models
         }
 
         // GET: Articles/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -73,6 +76,7 @@ namespace SpaceBlog.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "Id,Title,Content")] Article article)
         {
             if (ModelState.IsValid)
@@ -85,6 +89,7 @@ namespace SpaceBlog.Models
         }
 
         // GET: Articles/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -102,6 +107,7 @@ namespace SpaceBlog.Models
         // POST: Articles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Article article = db.Articles.Find(id);
