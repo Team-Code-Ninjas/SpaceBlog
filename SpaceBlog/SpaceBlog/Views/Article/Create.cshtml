@@ -1,10 +1,10 @@
 ﻿@model SpaceBlog.Models.Article
 
-<div class="container">
+@{
+    ViewBag.Title = "Create Article";
+}
 
-    @{
-        ViewBag.Title = "Create Article";
-    }
+<div class="container">
     <h2>@ViewBag.Title</h2>
 
     @using (Html.BeginForm())
