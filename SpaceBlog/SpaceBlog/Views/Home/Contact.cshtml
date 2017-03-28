@@ -3,9 +3,10 @@
 @{ 
     ViewBag.Title = "Contact Us";
 }
-<h1>@ViewBag.Title</h1>
 
 <div class="container">
+    <h1>@ViewBag.Title</h1>
+
     @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
     {
         <div class="form-group">
