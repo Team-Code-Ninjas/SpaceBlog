@@ -1,6 +1,9 @@
 ﻿@model SpaceBlog.Models.Contact
 
-<h1>Contact View</h1>
+@{ 
+    ViewBag.Title = "Contact Us";
+}
+<h1>@ViewBag.Title</h1>
 
 <div class="container">
     @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
