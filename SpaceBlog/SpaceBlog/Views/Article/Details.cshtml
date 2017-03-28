@@ -5,7 +5,7 @@
 }
 
 <div class="container">
-    <h2>Details</h2>
+    <h2>@ViewBag.Title</h2>
 
     <div>
         <hr />
@@ -37,8 +37,8 @@
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new{ id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Edit", "Edit", new{ id = Model.Id }, new { @class = "btn-sm btn-primary" })
+        @Html.ActionLink("Back to List", "Index", new { area = "" }, new { @class = "btn-sm btn-primary" })
     </p>
 
 </div>
