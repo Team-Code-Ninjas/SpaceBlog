@@ -14,7 +14,7 @@ namespace SpaceBlog.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "The Title must be text with maximum 50 characters.")]
         public string Title { get; set; }
 
         [Required]
