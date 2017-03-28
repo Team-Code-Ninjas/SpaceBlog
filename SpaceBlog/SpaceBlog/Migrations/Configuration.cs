@@ -20,6 +20,10 @@ namespace SpaceBlog.Migrations
             if (!db.Users.Any())
             {
                 CreateUser(db, "a@a.com", "Gosho", "123");
+                CreateUser(db, "admin@gmail.com", "Admin Adminov", "123456");
+
+                CreateRole(db, "Administrators");
+                AddUserToRole(db, "admin@gmail.com", "Administrators");
                 db.SaveChanges();
             }
 
@@ -70,6 +74,30 @@ namespace SpaceBlog.Migrations
             if (!userCreateResult.Succeeded)
             {
                 throw new Exception(string.Join("; ", userCreateResult.Errors));
+            }
+        }
+
+        private void CreateRole(BlogDBContext db, string roleName)
+        {
+            var roleManager = new RoleManager<IdentityRole>(
+                new RoleStore<IdentityRole>(db));
+            var roleCreateResult = roleManager.Create(new IdentityRole(roleName));
+            if (!roleCreateResult.Succeeded)
+            {
+                throw new Exception(string.Join("; ", roleCreateResult.Errors));
+            }
+        }
+
+        private static void AddUserToRole(BlogDBContext db, string userName, string roleName)
+        {
+            var user = db.Users.First(u => u.UserName == userName);
+            var userManager = new UserManager<ApplicationUser>(
+                new UserStore<ApplicationUser>(db));
+            var addAdminRoleResult = userManager.AddToRole(user.Id, roleName);
+
+            if (!addAdminRoleResult.Succeeded)
+            {
+                throw new Exception(string.Join("; ", addAdminRoleResult.Errors));
             }
         }
     }
