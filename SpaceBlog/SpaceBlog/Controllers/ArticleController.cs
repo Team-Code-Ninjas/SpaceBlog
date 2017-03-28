@@ -56,7 +56,7 @@ namespace SpaceBlog.Models
         }
 
         // GET: Articles/Edit/5
-        [Authorize]
+        [Authorize(Roles = "Administrators")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -89,7 +89,7 @@ namespace SpaceBlog.Models
         }
 
         // GET: Articles/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Administrators")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
