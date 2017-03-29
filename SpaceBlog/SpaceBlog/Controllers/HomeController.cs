@@ -22,7 +22,8 @@ namespace SpaceBlog.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Title = "About";
+            ViewBag.ContactInfo = "Contact info:";
 
             return View();
         }
