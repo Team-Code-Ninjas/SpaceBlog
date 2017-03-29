@@ -32,7 +32,8 @@ namespace SpaceBlog.Controllers
         [Authorize]
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Title = "Contact Us";
+            ViewBag.Message = "Get in touch";
 
             return View();
         }
@@ -52,6 +53,7 @@ namespace SpaceBlog.Controllers
 
         public ActionResult Team()
         {
+            ViewBag.Title = "Team";
             ViewBag.Message = "Our Team";
 
             return View();
@@ -59,7 +61,8 @@ namespace SpaceBlog.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Message = "Create";
+            ViewBag.Title = "Create";
+            ViewBag.Message = "New Post";
 
             return View();
         }
