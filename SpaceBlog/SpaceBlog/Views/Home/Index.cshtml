@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<SpaceBlog.Models.Article>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -7,63 +9,23 @@
 <div class="container body-content">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-preview">
-                <a href="#">
-                    <h2 class="post-title">
-                        Man must explore, and this is exploration at its greatest
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Problems look mighty small from 150 miles up
-                    </h3>
-                </a>
-                <div class="pull-right">
-                   @Html.ActionLink("Read more »", "Team", "Home", new { @class = "btn btn-primary" })
+            @foreach (var item in Model)
+            {
+                <div class="post-preview">
+                    <a href="/../Article/Details/@item.Id">
+                        <h2 class="post-title">
+                            @item.Title
+                        </h2>
+                        <h3 class="post-subtitle">
+                            @item.Content
+                        </h3>
+                    </a>
+                    <div class="pull-right">
+                        @Html.ActionLink("Read more »", $"/../Article/Details/{item.Id}", null, new { @class = "btn btn-primary" })
+                    </div>
+                    <p class="post-meta">Posted by @item.Author.FullName on @item.Date.</p>
                 </div>
-                <p class="post-meta">Posted by @Html.ActionLink("Team Code - Ninjas", "Team", "Home") on September 24, 2017</p>
-            </div>
-            <hr>
-
-            <div class="post-preview">
-                <a href="#">
-                    <h2 class="post-title">
-                        I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-                    </h2>
-                </a>
-                <div class="pull-right">
-                    @Html.ActionLink("Read more »", "Team", "Home", new { @class = "btn btn-primary"})
-                </div>
-                <p class="post-meta">Posted by @Html.ActionLink("Team Code - Ninjas", "Team", "Home") on September 18, 2017</p>
-            </div>
-            <hr>
-            <div class="post-preview">
-                <a href="#">
-                    <h2 class="post-title">
-                        Science has not yet mastered prophecy
-                    </h2>
-                    <h3 class="post-subtitle">
-                        We predict too much for the next year and yet far too little for the next ten.
-                    </h3>
-                </a>
-                <div class="pull-right">
-                    @Html.ActionLink("Read more »", "Team", "Home", new { @class = "btn btn-primary"})
-                </div>
-                <p class="post-meta">Posted by @Html.ActionLink("Team Code - Ninjas", "Team", "Home") on August 24, 2016</p>
-            </div>
-            <hr>
-            <div class="post-preview">
-                <a href="#">
-                    <h2 class="post-title">
-                        Failure is not an option
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-                    </h3>
-                </a>
-                <div class="pull-right">
-                    @Html.ActionLink("Read more »", "Team", "Home", new { @class = "btn btn-primary" })                </div>
-                <p class="post-meta">Posted by @Html.ActionLink("Team Code - Ninjas", "Team", "Home") on July 8, 2016</p>
-            </div>
-            <hr>
+                <hr>
+            }
         </div>
-    </div>
 </div>

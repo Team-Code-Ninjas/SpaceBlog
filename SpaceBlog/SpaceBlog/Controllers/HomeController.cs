@@ -1,16 +1,17 @@
 ﻿using System.Web.Mvc;
 using SpaceBlog.Models;
+using System.Data.Entity;
+using System.Linq;
 
 namespace SpaceBlog.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly BlogDBContext _dbContext =
-            new BlogDBContext();
+        private readonly BlogDBContext db = new BlogDBContext();
 
         public ActionResult Index()
         {
-            return View();
+            return View(db.Articles.Include(a => a.Author).ToList());
         }
 
         public ActionResult About()
@@ -38,8 +39,8 @@ namespace SpaceBlog.Controllers
             if (!ModelState.IsValid)
                 return View(contact);
 
-            _dbContext.Contacts.Add(contact);
-            _dbContext.SaveChanges();
+            db.Contacts.Add(contact);
+            db.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -62,7 +63,7 @@ namespace SpaceBlog.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            _dbContext.Dispose();
+            db.Dispose();
         }
 
     }
