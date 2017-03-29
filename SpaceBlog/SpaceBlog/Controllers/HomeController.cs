@@ -1,11 +1,4 @@
 ﻿using System.Web.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Web;
-using System.Linq;
 using SpaceBlog.Models;
 
 namespace SpaceBlog.Controllers
@@ -55,7 +48,7 @@ namespace SpaceBlog.Controllers
         {
             ViewBag.Title = "Team";
             ViewBag.Message = "Our Team";
-
+        
             return View();
         }
 
