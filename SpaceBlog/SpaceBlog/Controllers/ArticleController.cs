@@ -13,12 +13,13 @@ namespace SpaceBlog.Models
         // GET: Articles
         public ActionResult Index()
         {
-            return View(db.Articles.ToList());
+            var articlesWithAuthors = db.Articles.Include(a => a.Author).ToList();
+            return View(articlesWithAuthors);
         }
 
         // GET: Articles/Details/5
         public ActionResult Details(int? id)
-        {
+        {   
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
