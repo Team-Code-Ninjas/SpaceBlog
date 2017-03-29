@@ -23,7 +23,7 @@
                     <div class="pull-right">
                         @Html.ActionLink("Read more »", $"/../Article/Details/{item.Id}", null, new { @class = "btn btn-primary" })
                     </div>
-                    <p class="post-meta">Posted by @item.Author.FullName on @item.Date.</p>
+                    <p class="post-meta">Posted by @(item.Author.FullName != null ? item.Author.FullName : "anonymous") on @item.Date.</p>
                 </div>
                 <hr>
             }
