@@ -2,10 +2,12 @@
 
 @{ 
     ViewBag.Title = "Contact Us";
+    ViewBag.Message = "Get in touch";
 }
 
 <div class="container">
     <h1>@ViewBag.Title</h1>
+    <h3>@ViewBag.Message</h3>
 
     @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
     {
