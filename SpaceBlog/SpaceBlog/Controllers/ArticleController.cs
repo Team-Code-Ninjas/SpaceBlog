@@ -54,7 +54,7 @@ namespace SpaceBlog.Models
 
                 db.Articles.Add(article);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
             }
 
             return View(article);
