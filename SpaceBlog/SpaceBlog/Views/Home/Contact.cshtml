@@ -32,7 +32,7 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Message, new { @class = "control-label" })
-        @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+        @Html.TextAreaFor(m => m.Message, new { @class = "form-control", placeholder = "Enter your message" })
         @Html.ValidationMessageFor(m => m.Message)
     </div>
 
