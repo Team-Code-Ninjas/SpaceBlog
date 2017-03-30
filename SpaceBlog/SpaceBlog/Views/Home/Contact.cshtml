@@ -30,8 +30,10 @@
         @Html.TextAreaFor(m => m.Message, new { @class = "form-control", placeholder = "Enter your message" })
         @Html.ValidationMessageFor(m => m.Message)
     </div>
+        
+        <input type="submit" value="Send" class="btn btn-danger" />
+        
 
-        <input type="submit" value="Send" class="btn btn-success" />
 
         
     }
