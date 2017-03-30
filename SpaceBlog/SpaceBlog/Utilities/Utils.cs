@@ -10,7 +10,7 @@
         /// <param name="maxLength"></param>
         /// <returns>text</returns>
         /// <returns>shortText</returns>
-        public static string CutText(string text, int maxLength = 100)
+        public static string CutText(string text, int maxLength)
         {
             if (text == null || text.Length <= maxLength)
             {
