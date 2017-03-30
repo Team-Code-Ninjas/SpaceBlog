@@ -5,40 +5,42 @@
 }
 
 <div class="container">
-    <h2>@ViewBag.Title</h2>
+    <h1>@ViewBag.Title</h1>
 
-    <div>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Title)
-            </dt>
+    <!-- Page Header -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h2>@Html.DisplayFor(model => model.Title)</h2>
+                        <span class="meta">Posted by @Html.DisplayFor(model => model.Date)</span>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </header>
 
-            <dd>
-                @Html.DisplayFor(model => model.Title)
-            </dd>
+    
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Content)
-            </dt>
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    @Html.DisplayFor(model => model.Content)
+                </div>
+            </div>
+        </div>
+    </article>
 
-            <dd>
-                @Html.DisplayFor(model => model.Content)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Date)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Date)
-            </dd>
-
-        </dl>
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <br />
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn-sm btn-primary" })
+            @Html.ActionLink("Back to List", "Index", new { area = "" }, new { @class = "btn-sm btn-primary" })
+        </p>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new{ id = Model.Id }, new { @class = "btn-sm btn-primary" })
-        @Html.ActionLink("Back to List", "Index", new { area = "" }, new { @class = "btn-sm btn-primary" })
-    </p>
 
-</div>
+    </div>
