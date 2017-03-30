@@ -45,9 +45,15 @@
                     @Html.DisplayFor(modelItem => item.Author.FullName)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn-sm btn-primary" }) 
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn-sm btn-primary" }) 
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn-sm btn-danger" })
+                    @if (User.IsInRole("Administrators"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn-sm btn-primary" })
+                    }
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn-sm btn-primary" })
+                    @if (User.IsInRole("Administrators"))
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn-sm btn-danger" })
+                    }
                 </td>
             </tr>
         }
