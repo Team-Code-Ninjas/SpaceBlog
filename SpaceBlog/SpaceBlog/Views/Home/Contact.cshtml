@@ -1,6 +1,7 @@
 ﻿@model SpaceBlog.Models.Contact
-
+<div align="center">
 <div class="container">
+    
     <h1>@ViewBag.Title</h1>
     <h3>@ViewBag.Message</h3>
 
@@ -27,14 +28,11 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Message, new { @class = "control-label" })
-        @Html.TextAreaFor(m => m.Message, new { @class = "form-control", placeholder = "Enter your message" })
+        @Html.TextAreaFor(m => m.Message, new { @class = "form-control", placeholder = "Plese enter your message here" })
         @Html.ValidationMessageFor(m => m.Message)
     </div>
         
-        <input type="submit" value="Send" class="btn btn-danger" />
-        
-
-
-        
+        <input type="submit" value="Send" class="btn btn-danger" />                
     }
+</div>
 </div>
