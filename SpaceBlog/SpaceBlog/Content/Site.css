@@ -306,3 +306,8 @@ img::-moz-selection {
 body {
   -webkit-tap-highlight-color: #0085A1;
 }
+footer .copyright {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 0;
+}

@@ -36,11 +36,11 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <br />
         @Html.ActionLink("Back to List", "Index", new { area = "" }, new { @class = "btn-sm btn-primary" })
+
         @if (User.IsInRole("Administrators"))
         {
-            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn-sm btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { @class = "btn-sm btn-danger" })
+            @Html.ActionLink("Edit", "Edit", new { area = "", id = Model.Id }, new { @class = "btn-sm btn-primary" })
+            @Html.ActionLink("Delete", "Delete", new { area = "", id = Model.Id }, new { @class = "btn-sm btn-danger" })
         }
     </div>
-
-    </div>
+</div>
