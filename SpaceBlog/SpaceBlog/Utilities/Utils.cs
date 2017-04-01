@@ -40,7 +40,7 @@ namespace SpaceBlog.Utilities
                 }
             }
 
-            return CutText(text, maxLength + additionalCuts *8);
+            return CutText(text, maxLength + additionalCuts);
         }
 
 
