@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace SpaceBlog.Models
@@ -13,11 +14,19 @@ namespace SpaceBlog.Models
         // GET: Articles
         public ActionResult Index()
         {
-            var articlesWithAuthors = db.Articles.Include(a => a.Author).ToList();
-            return View(articlesWithAuthors);
+            return View(db.Articles.Include(a => a.Author).ToList().Select(x => new Article
+            {
+                Id = x.Id,
+                Content = HttpUtility.HtmlDecode(x.Content),
+                Date = x.Date,
+                Title = x.Title,
+                Author = x.Author
+            }));
         }
 
         // GET: Articles/Details/5
+        [ValidateInput(false)]
+
         public ActionResult Details(int? id)
         {   
             if (id == null)
@@ -25,6 +34,8 @@ namespace SpaceBlog.Models
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Article article = db.Articles.Find(id);
+            article.Content = HttpUtility.HtmlDecode(article.Content);
+
             if (article == null)
             {
                 return HttpNotFound();
@@ -51,9 +62,8 @@ namespace SpaceBlog.Models
             if (ModelState.IsValid)
             {
                 var currentUserId = HttpContext.User.Identity.GetUserId();
-
+                article.Content = HttpUtility.HtmlEncode(article.Content);
                 article.Author = db.Users.Find(currentUserId);
-
                 db.Articles.Add(article);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -70,7 +80,11 @@ namespace SpaceBlog.Models
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
+
             Article article = db.Articles.Find(id);
+
+            article.Content =  HttpUtility.HtmlDecode(article.Content);
             if (article == null)
             {
                 return HttpNotFound();
@@ -83,11 +97,13 @@ namespace SpaceBlog.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         [Authorize]
         public ActionResult Edit([Bind(Include = "Id,Title,Content")] Article article)
         {
             if (ModelState.IsValid)
             {
+                HttpUtility.HtmlEncode(article.Content);
                 db.Entry(article).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

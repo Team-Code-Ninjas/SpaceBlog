@@ -247,8 +247,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\PageScripts\article-editor.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tinymce.min.js" />
+    <Content Include="Scripts\Tinymce\jquery.tinymce.min.js" />
+    <Content Include="Scripts\Tinymce\license.txt" />
+    <Content Include="Scripts\Tinymce\tinymce.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -283,6 +288,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\Tinymce\langs\" />
+    <Folder Include="Scripts\Tinymce\plugins\" />
+    <Folder Include="Scripts\Tinymce\skins\" />
+    <Folder Include="Scripts\Tinymce\themes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

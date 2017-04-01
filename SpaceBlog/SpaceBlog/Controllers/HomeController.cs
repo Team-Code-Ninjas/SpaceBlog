@@ -2,6 +2,7 @@
 using SpaceBlog.Models;
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
 
 namespace SpaceBlog.Controllers
 {
@@ -11,7 +12,13 @@ namespace SpaceBlog.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Articles.Include(a => a.Author).ToList());
+            return View(db.Articles.Include(a => a.Author).ToList().Select(x=>new Article {
+                Id = x.Id,
+                Content = HttpUtility.HtmlDecode(x.Content),
+                Date = x.Date,
+                Title = x.Title,
+                Author = x.Author
+            }));
         }
 
         public ActionResult About()

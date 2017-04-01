@@ -26,6 +26,10 @@ namespace SpaceBlog
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
+                      "~/Scripts/Tinymce/tinymce.min.js",
+                      "~/Scripts/PageScripts/article-editor.js"));
         }
     }
 }
