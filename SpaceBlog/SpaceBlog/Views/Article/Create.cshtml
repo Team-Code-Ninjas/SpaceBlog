@@ -27,13 +27,13 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10 article-editor-container" style="width:500px">
-                        @Html.TextAreaFor(model => model.Content, new { @id="article-editor", @class = "form-control article-editor", @width="400px", placeholder = "Post Content" })
+                        @Html.TextAreaFor(model => model.Content, new { @id = "article-editor", @class = "form-control article-editor", @width = "400px", placeholder = "Post Content" })
                         @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="button" value="Cancel" class="btn btn-danger" onclick="window.location = '/'" />
+                        @Html.ActionLink("Cancel", "Index", "Article", new { @class = "btn btn-danger"})
                         <input type="reset" value="Reset" class="btn btn-warning" />
                         <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
