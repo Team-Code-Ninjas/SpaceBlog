@@ -23,11 +23,19 @@ namespace SpaceBlog.Migrations
                 CreateUser(db, "alex@gmail.com", "Alexander", "123");
                 CreateUser(db, "admin@gmail.com", "Admin Adminov", "123456");
 
-                CreateRole(db, "Administrators");
-                AddUserToRole(db, "admin@gmail.com", "Administrators");
                 db.SaveChanges();
             }
 
+            if (!db.Roles.Any())
+            {
+                CreateRole(db, "Administrators");
+                CreateRole(db, "Moderators");
+
+                AddUserToRole(db, "admin@gmail.com", "Administrators");
+
+                db.SaveChanges();
+            }
+            
             if (!db.Articles.Any())
             {
                 CreateArticle(db,

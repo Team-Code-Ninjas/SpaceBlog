@@ -39,8 +39,8 @@
 
         @if (User.IsInRole("Administrators"))
         {   
-            @Html.ActionLink("Edit", "Edit", new { area = "", id = Model.Id }, new { @class = "btn-sm btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new { area = "", id = Model.Id }, new { @class = "btn-sm btn-danger" })
+            @Html.ActionLink("Edit", "Edit", new {id = Model.Id }, new { @class = "btn-sm btn-primary" })
+            @Html.ActionLink("Delete", "Delete", new {id = Model.Id }, new { @class = "btn-sm btn-danger" })
         }
     </div>
 </div>
