@@ -12,7 +12,8 @@ namespace SpaceBlog.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Articles.Include(a => a.Author).ToList().Select(x=>new Article {
+            return View(db.Articles.Include(a => a.Author).ToList().Select(x => new Article
+            {
                 Id = x.Id,
                 Content = HttpUtility.HtmlDecode(x.Content),
                 Date = x.Date,
@@ -72,6 +73,5 @@ namespace SpaceBlog.Controllers
         {
             db.Dispose();
         }
-
     }
 }

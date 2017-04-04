@@ -33,13 +33,15 @@ namespace SpaceBlog.Models
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Article article = db.Articles.Include(a => a.Author).ToList().FirstOrDefault(a=>a.Id == id);
+
+            Article article = db.Articles.Include(a => a.Author).ToList().FirstOrDefault(a => a.Id == id);
             article.Content = HttpUtility.HtmlDecode(article.Content);
 
             if (article == null)
             {
                 return HttpNotFound();
             }
+
             return View(article);
         }
 
@@ -51,8 +53,6 @@ namespace SpaceBlog.Models
         }
 
         // POST: Article/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
@@ -66,6 +66,7 @@ namespace SpaceBlog.Models
                 article.Author = db.Users.Find(currentUserId);
                 db.Articles.Add(article);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
@@ -83,18 +84,17 @@ namespace SpaceBlog.Models
             
 
             Article article = db.Articles.Find(id);
+            article.Content = HttpUtility.HtmlDecode(article.Content);
 
-            article.Content =  HttpUtility.HtmlDecode(article.Content);
             if (article == null)
             {
                 return HttpNotFound();
             }
+
             return View(article);
         }
 
         // POST: Articles/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
@@ -106,8 +106,10 @@ namespace SpaceBlog.Models
                 HttpUtility.HtmlEncode(article.Content);
                 db.Entry(article).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
+
             return View(article);
         }
 
@@ -119,11 +121,14 @@ namespace SpaceBlog.Models
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Article article = db.Articles.Find(id);
+
             if (article == null)
             {
                 return HttpNotFound();
             }
+
             return View(article);
         }
 
@@ -145,6 +150,7 @@ namespace SpaceBlog.Models
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

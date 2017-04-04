@@ -22,9 +22,9 @@ namespace SpaceBlog.Models
 
         public DateTime Date { get; set; }
 
-        //public virtual IEnumerable<Comment> Comments { get; set; }
-        //public Category Category { get; set; }
-        //public virtual IEnumerable<Tag> Tags  { get; set; }
+        /// public virtual IEnumerable<Comment> Comments { get; set; }
+        /// public Category Category { get; set; }
+        /// public virtual IEnumerable<Tag> Tags  { get; set; }
 
         public ApplicationUser Author { get; set; }
     }

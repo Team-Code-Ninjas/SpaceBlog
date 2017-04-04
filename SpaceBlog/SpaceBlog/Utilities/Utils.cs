@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SpaceBlog.Utilities
+﻿namespace SpaceBlog.Utilities
 {
+    using System;
+    using System.Collections.Generic;
+
     public class Utils
-    { 
+    {
+        private static List<string> newRowTags = new List<string>() { "</p>", "</li>", "<br>" };
+
         /// <summary>
         /// This method will be used to display only the first 
         /// 100 characters of each content in article
@@ -26,7 +28,7 @@ namespace SpaceBlog.Utilities
 
         public static string CutHtmlText(string text, int maxLength)
         {
-            //var shortText = CutText(text, maxLength);
+            // var shortText = CutText(text, maxLength);
             var shortText = text;
             int additionalCuts = 0;
             foreach (var tag in newRowTags)
@@ -42,9 +44,6 @@ namespace SpaceBlog.Utilities
 
             return CutText(text, maxLength + additionalCuts);
         }
-
-
-        private static List<string> newRowTags = new List<string>() { "</p>", "</li>", "<br>" };
 
         private static int CalculateHtmlTagCuts(string htmlTag)
         {
