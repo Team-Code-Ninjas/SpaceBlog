@@ -75,24 +75,30 @@ namespace SpaceBlog.Models
         }
 
         // GET: Articles/Edit/5
-        [Authorize(Roles = "Administrators")]
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
 
-            Article article = db.Articles.Find(id);
-            article.Content = HttpUtility.HtmlDecode(article.Content);
+            var currentUserId = HttpContext.User.Identity.GetUserId();
+            var currentArticle = db.Articles.Include(a => a.Author).FirstOrDefault(a => a.Id == id);
 
-            if (article == null)
+            if (currentArticle == null)
             {
                 return HttpNotFound();
             }
 
-            return View(article);
+            if (currentUserId == currentArticle.Author.Id || User.IsInRole("Administrators") || User.IsInRole("Moderators"))
+            {
+                currentArticle.Content = HttpUtility.HtmlDecode(currentArticle.Content);
+
+                return View(currentArticle);
+            }
+
+            return RedirectToAction("Index"); // should display "You are not authorized to do that" view
         }
 
         // POST: Articles/Edit/5
@@ -115,7 +121,7 @@ namespace SpaceBlog.Models
         }
 
         // GET: Articles/Delete/5
-        [Authorize(Roles = "Administrators")]
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -123,15 +129,21 @@ namespace SpaceBlog.Models
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Article article = db.Articles.Find(id);
-            article.Content = HttpUtility.HtmlDecode(article.Content);
+            var currentUserId = HttpContext.User.Identity.GetUserId();
+            var currentArticle = db.Articles.Include(a => a.Author).FirstOrDefault(a => a.Id == id);
 
-            if (article == null)
+            if (currentArticle == null)
             {
                 return HttpNotFound();
             }
 
-            return View(article);
+            if (currentUserId == currentArticle.Author.Id || User.IsInRole("Administrators") || User.IsInRole("Moderators"))
+            {
+                currentArticle.Content = HttpUtility.HtmlDecode(currentArticle.Content);
+                return View(currentArticle);
+            }
+
+            return RedirectToAction("Index"); // should display "You are not authorized to do that" view
         }
 
         // POST: Articles/Delete/5
