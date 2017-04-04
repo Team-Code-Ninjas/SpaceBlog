@@ -33,7 +33,7 @@ namespace SpaceBlog.Models
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Article article = db.Articles.Find(id);
+            Article article = db.Articles.Include(a => a.Author).ToList().FirstOrDefault(a=>a.Id == id);
             article.Content = HttpUtility.HtmlDecode(article.Content);
 
             if (article == null)
