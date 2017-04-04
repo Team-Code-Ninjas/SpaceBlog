@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -136,6 +137,39 @@ namespace SpaceBlog.Models
             Article article = db.Articles.Find(id);
             db.Articles.Remove(article);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public ActionResult Comment(int id)
+        {
+            var articleCommentViewModel = new ArticleCommentViewModel
+            {
+                ArticleId = id
+            };
+
+            return View(articleCommentViewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Comment(ArticleCommentViewModel articleComment)
+        {
+            var article = db.Articles.SingleOrDefault(a => a.Id == articleComment.ArticleId);
+            if (article == null)
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
+            var comment = new Comment
+            {
+                Author = User.Identity.Name,
+                Content = articleComment.Comment,
+                DateTimeComment = DateTime.Now
+            };
+
+            article.Comments.Add(comment);
+            db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
