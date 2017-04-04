@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SpaceBlog.Models
@@ -19,13 +20,14 @@ namespace SpaceBlog.Models
 
         [Required]
         public string Content { get; set; }
-
+        [Required]
         public DateTime Date { get; set; }
 
         /// public virtual IEnumerable<Comment> Comments { get; set; }
         /// public Category Category { get; set; }
         /// public virtual IEnumerable<Tag> Tags  { get; set; }
 
-        public ApplicationUser Author { get; set; }
+        public virtual ApplicationUser Author { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

@@ -14,8 +14,12 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
                         <h2>@Html.DisplayFor(model => model.Title)</h2>
+<<<<<<< HEAD
+                        <p class="meta">Posted by @Html.DisplayNameFor(model => model.Author) @Html.DisplayFor(model => model.Date) </p>
+=======
                         <span class="meta">Posted by @Html.DisplayFor(model => model.Author.FullName)</span>
                         <span class="meta">On @Html.DisplayFor(model => model.Date)</span>
+>>>>>>> 671ca6175219dc19437a47eb88f650c3c370bd97
                     </div>
                     <hr />
                 </div>
@@ -31,17 +35,21 @@
                     @Html.Raw(Model.Content)
                 </div>
             </div>
+            <div class="row">
+                
+            </div>
         </div>
     </article>
 
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <br />
         @Html.ActionLink("Back", "Index", new { area = "" }, new { @class = "btn-sm btn-primary" })
+        @Html.ActionLink("Add Comment", "Comment", new { id = Model.Id }, new { @class = "btn-sm btn-success"})
 
         @if (User.IsInRole("Administrators"))
-        {   
-            @Html.ActionLink("Edit", "Edit", new {id = Model.Id }, new { @class = "btn-sm btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new {id = Model.Id }, new { @class = "btn-sm btn-danger" })
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn-sm btn-primary" })
+            @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { @class = "btn-sm btn-danger" })
         }
     </div>
 </div>
