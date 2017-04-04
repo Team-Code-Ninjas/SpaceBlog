@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-
 namespace SpaceBlog.Models
 {
     public class Contact

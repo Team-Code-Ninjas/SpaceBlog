@@ -123,6 +123,7 @@ namespace SpaceBlog.Models
             }
 
             Article article = db.Articles.Find(id);
+            article.Content = HttpUtility.HtmlDecode(article.Content);
 
             if (article == null)
             {
