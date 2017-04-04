@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace SpaceBlog.Utilities
 {
     public class Utils
-    {
+    { 
         /// <summary>
         /// This method will be used to display only the first 
         /// 100 characters of each content in article
