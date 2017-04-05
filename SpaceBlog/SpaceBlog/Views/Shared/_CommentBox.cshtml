@@ -5,7 +5,7 @@
 
     <dd>
         <div class="commentBox">
-            @using (Html.BeginForm("Add", "ArticlesComments", FormMethod.Post, new { onsubmit = "return SubmitComment()" }))
+            @using (Html.BeginForm("PostComment", "Article", FormMethod.Post, new { onsubmit = "return SubmitComment()" }))
             {
             @Html.AntiForgeryToken()
                 <div class="form-horizontal">

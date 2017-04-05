@@ -32,10 +32,26 @@
                 </div>
             </div>
             <div class="row">
-                
+
             </div>
         </div>
     </article>
+
+    <aside>
+        <h3>Comments</h3>
+        @foreach (var comment in Model.Comments)
+        {
+        <div class="row">
+            <div class="col-md-3">@comment.Author.FullName</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">@comment.Content</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">Posted on @comment.Date</div>
+        </div>
+        }
+    </aside>
 
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <br />
@@ -43,13 +59,13 @@
 
         @if (User.IsInRole("Administrators") || User.IsInRole("Moderators") || User.Identity.Name == Model.Author.UserName)
         {
-            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn-sm btn-primary" })
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn-sm btn-primary" })
             @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { @class = "btn-sm btn-danger" })
         }
     </div>
 </div>
 @{
-   // ViewBag.Title = Model.Title;
+    // ViewBag.Title = Model.Title;
     var comments = (IEnumerable<SpaceBlog.Models.Comment>)ViewBag.Comments;
     var ratingSum = ViewBag.RatingSum;
     var ratingCount = ViewBag.RatingCount;
