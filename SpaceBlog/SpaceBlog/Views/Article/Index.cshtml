@@ -47,12 +47,18 @@
                     @Html.DisplayFor(modelItem => item.Author.FullName)
                 </td>
                 <td>
-                @if (User.IsInRole("Administrators") || User.IsInRole("Moderators") || User.Identity.Name == item.Author.UserName)
-                {
+                    @{ 
+                        var userInRole = User.IsInRole("Administrators") || User.IsInRole("Moderators") || User.Identity.Name == item.Author.UserName;
+                    }
+
+                    @if (userInRole)
+                    {
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn-sm btn-primary" })
                     }
+
                     @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn-sm btn-primary" })
-                    @if (User.IsInRole("Administrators") || User.IsInRole("Moderators") || User.Identity.Name == item.Author.UserName)
+
+                    @if (userInRole)
                     {
                         @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn-sm btn-danger" })
                     }
