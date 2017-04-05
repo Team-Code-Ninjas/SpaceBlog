@@ -41,7 +41,7 @@ namespace SpaceBlog.Models
                 .Include("Comments.Author")
                 .FirstOrDefault(a => a.Id == id);
 
-
+                //just a change
             article.Content = HttpUtility.HtmlDecode(article.Content);
 
             if (article == null)
