@@ -12,5 +12,7 @@ namespace SpaceBlog.Models
         public DateTime DateTimeComment { get; set; }
         [Required]
         public string Content { get; set; }
+        [Required]
+        public Article Article { get; set; }
     }
 }

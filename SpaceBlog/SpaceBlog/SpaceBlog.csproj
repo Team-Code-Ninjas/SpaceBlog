@@ -284,6 +284,7 @@
     <Content Include="Views\Article\Edit.cshtml" />
     <Content Include="Views\Article\Index.cshtml" />
     <Content Include="Views\Article\Comment.cshtml" />
+    <Content Include="Views\Shared\_CommentBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

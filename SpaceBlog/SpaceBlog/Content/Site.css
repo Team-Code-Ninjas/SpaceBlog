@@ -311,3 +311,38 @@ footer .copyright {
   text-align: center;
   margin-bottom: 0;
 }
+/*Rating system CSS + comments display*/
+.commentBox {
+    background-color:#efefef;
+    padding:10px;
+    border-radius:10px;
+}
+
+.starFade{
+    background-image:url('/Images/StarFade.gif');
+    min-width:30px;
+    min-height:30px;
+    display:inline-block;
+    cursor:pointer;
+}
+
+.starFadeN{
+    background-image:url('/Images/StarFade.gif');
+    min-width:30px;
+    min-height:30px;
+    display:inline-block;
+}
+
+.starGlow{
+    background-image:url('/Images/starglow.gif');
+    min-width:30px;
+    min-height:30px;
+    display:inline-block;
+    cursor:pointer;
+}
+.starGlowN{
+    background-image:url('/Images/starglow.gif');
+    min-width:30px;
+    min-height:30px;
+    display:inline-block;
+}

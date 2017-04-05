@@ -43,6 +43,26 @@ namespace SpaceBlog.Models
                 return HttpNotFound();
             }
 
+            ViewBag.ArticleId = id.Value;
+
+            var comments = db.Comments.Where(d => d.Article.Id.Equals(id.Value)).ToList();
+            ViewBag.Comments = comments;
+
+            var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
+           /* if (ratings.Count() > 0)
+            {
+                var ratingSum = ratings.Sum(d => d.Value);
+                ViewBag.RatingSum = ratingSum;
+                var ratingCount = ratings.Count();
+                ViewBag.RatingCount = ratingCount;
+            }
+            else
+            {
+                ViewBag.RatingSum = 0;
+                ViewBag.RatingCount = 0;
+            }
+*/
+
             return View(article);
         }
 
@@ -182,7 +202,8 @@ namespace SpaceBlog.Models
             {
                 Author = User.Identity.Name,
                 Content = articleComment.Comment,
-                DateTimeComment = DateTime.Now
+                DateTimeComment = DateTime.Now,
+                Article = article
             };
 
             article.Comments.Add(comment);

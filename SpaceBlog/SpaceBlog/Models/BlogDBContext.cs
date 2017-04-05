@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using SpaceBlog.Models;
 using System.Data.Entity;
 
 namespace SpaceBlog.Models
@@ -16,7 +17,7 @@ namespace SpaceBlog.Models
         }
 
         public virtual DbSet<Article> Articles { get; set; }
-
+        public virtual DbSet<Comment> Comments { get; set;  }
         public virtual DbSet<Contact> Contacts { get; set; }
     }
 }
