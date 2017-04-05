@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -27,15 +28,20 @@ namespace SpaceBlog.Models
 
         // GET: Articles/Details/5
         [ValidateInput(false)]
-
         public ActionResult Details(int? id)
-        {   
+        {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Article article = db.Articles.Include(a => a.Author).ToList().FirstOrDefault(a => a.Id == id);
+            Article article = db.Articles
+                .Include(a => a.Author)
+                .Include(a => a.Comments)
+                .Include("Comments.Author")
+                .FirstOrDefault(a => a.Id == id);
+
+
             article.Content = HttpUtility.HtmlDecode(article.Content);
 
             if (article == null)
@@ -43,25 +49,20 @@ namespace SpaceBlog.Models
                 return HttpNotFound();
             }
 
-            ViewBag.ArticleId = id.Value;
-
-            var comments = db.Comments.Where(d => d.Article.Id.Equals(id.Value)).ToList();
-            ViewBag.Comments = comments;
-
-            var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
-           /* if (ratings.Count() > 0)
-            {
-                var ratingSum = ratings.Sum(d => d.Value);
-                ViewBag.RatingSum = ratingSum;
-                var ratingCount = ratings.Count();
-                ViewBag.RatingCount = ratingCount;
-            }
-            else
-            {
-                ViewBag.RatingSum = 0;
-                ViewBag.RatingCount = 0;
-            }
-*/
+            //var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
+            /* if (ratings.Count() > 0)
+             {
+                 var ratingSum = ratings.Sum(d => d.Value);
+                 ViewBag.RatingSum = ratingSum;
+                 var ratingCount = ratings.Count();
+                 ViewBag.RatingCount = ratingCount;
+             }
+             else
+             {
+                 ViewBag.RatingSum = 0;
+                 ViewBag.RatingCount = 0;
+             }
+ */
 
             return View(article);
         }
@@ -192,17 +193,20 @@ namespace SpaceBlog.Models
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Comment(ArticleCommentViewModel articleComment)
+        public ActionResult PostComment(ArticleCommentViewModel articleComment)
         {
             var article = db.Articles.SingleOrDefault(a => a.Id == articleComment.ArticleId);
             if (article == null)
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 
+            var authorId = User.Identity.GetUserId();
+            var author = db.Users.FirstOrDefault(a => a.Id == authorId);
+
             var comment = new Comment
             {
-                Author = User.Identity.Name,
+                Author = author,
                 Content = articleComment.Comment,
-                DateTimeComment = DateTime.Now,
+                Date = DateTime.Now,
                 Article = article
             };
 
