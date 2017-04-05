@@ -222,6 +222,10 @@ hr.small {
     font-size: 30px;
   }
 }
+.container .meta-post-content {
+    font-size: 17px;
+}
+
 .post-preview > a {
   color: #333333;
 }
@@ -319,7 +323,7 @@ footer .copyright {
     border-radius:10px;
 }
 
-.starFade{
+.starFade {
     background-image:url('/Images/StarFade.gif');
     min-width:30px;
     min-height:30px;
@@ -327,23 +331,32 @@ footer .copyright {
     cursor:pointer;
 }
 
-.starFadeN{
+.starFadeN {
     background-image:url('/Images/StarFade.gif');
     min-width:30px;
     min-height:30px;
     display:inline-block;
 }
 
-.starGlow{
+.starGlow {
     background-image:url('/Images/starglow.gif');
     min-width:30px;
     min-height:30px;
     display:inline-block;
     cursor:pointer;
 }
-.starGlowN{
+.starGlowN {
     background-image:url('/Images/starglow.gif');
     min-width:30px;
     min-height:30px;
     display:inline-block;
+}
+.commentar .row .meta-posted {
+    font-family: 'Lora', 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 17px;
+}
+.commentar .row meta-commentC {
+    font-size: 40px;
 }
