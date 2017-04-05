@@ -9,6 +9,7 @@ namespace SpaceBlog.Models
         public Article()
         {
             Date = DateTime.Now;
+            this.Comments = new List<Comment>();
         }
 
         [Key]
@@ -26,6 +27,8 @@ namespace SpaceBlog.Models
         /// public virtual IEnumerable<Comment> Comments { get; set; }
         /// public Category Category { get; set; }
         /// public virtual IEnumerable<Tag> Tags  { get; set; }
+        
+        public string AuthorId { get; set; }
 
         public virtual ApplicationUser Author { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
