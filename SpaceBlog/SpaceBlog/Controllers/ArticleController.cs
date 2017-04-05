@@ -41,13 +41,19 @@ namespace SpaceBlog.Models
                 .Include("Comments.Author")
                 .FirstOrDefault(a => a.Id == id);
 
-                //just a change
             article.Content = HttpUtility.HtmlDecode(article.Content);
 
             if (article == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.ArticleId = id.Value;
+
+            var comments = db.Comments.Where(d => d.Article.Id.Equals(id.Value)).ToList();
+            ViewBag.Comments = comments;
+
+            var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
 
             //var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
             /* if (ratings.Count() > 0)
