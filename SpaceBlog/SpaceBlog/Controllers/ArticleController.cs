@@ -68,7 +68,7 @@ namespace SpaceBlog.Models
                  ViewBag.RatingSum = 0;
                  ViewBag.RatingCount = 0;
              }
- */
+            */
 
             return View(article);
         }

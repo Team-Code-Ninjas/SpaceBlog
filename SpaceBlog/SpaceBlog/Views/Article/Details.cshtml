@@ -67,16 +67,19 @@
         }
     </div>
 </div>
+ 
 @{
     var comments = (IEnumerable<SpaceBlog.Models.Comment>)ViewBag.Comments;
     var ratingSum = ViewBag.RatingSum;
     var ratingCount = ViewBag.RatingCount;
 
     decimal rating = 0;
+
     if (ratingCount > 0)
     {
         rating = (ratingSum / ratingCount);
     }
+
     var totalRating = decimal.Parse(rating.ToString());
 }
 
@@ -89,7 +92,8 @@
             $("#sRate" + i).attr('class', 'starGlowN');
         }
     }
-    $(function(){
+
+    $(function() {
         SCRate();
     });
 </script>

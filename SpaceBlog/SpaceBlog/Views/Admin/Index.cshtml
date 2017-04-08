@@ -12,78 +12,89 @@
 <div class="container">
     <h2>@ViewBag.Title</h2>
 
-    <table class="table table-striped table-bordered table-responsive">
-        <tr>
-            <th>
-                Username
-            </th>
-            <th>
-                Fullname
-            </th>
-            <th> 
-                Articles Created
-            </th>
-            <th>
-                Comments Made
-            </th>
-            <th>
-                User Type
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-
-        @foreach (var user in Model)
-        {
+    <table id="userTable" class="table table-striped table-bordered table-responsive">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => user.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => user.FullName)
-                </td>
-                @{
-                    IEnumerable<Article> articles = ViewBag.Articles;
-                    IEnumerable<Comment> comments= ViewBag.Comments;
-
-                    var articlesCount = articles.Count(a => a.Author.Id == user.Id);
-                    var commentsCount = comments.Count(a => a.Author.Id == user.Id);
-
-                    // Mind wanna change this way of checking in which role is the current user
-                    //var userRole = string.Empty;
-                    //if (true)
-                    //{
-                    //    userRole = "Admin";
-                    //}
-                    //else if (true)
-                    //{
-                    //    userRole = "Moderator";
-                    //}
-                    //else
-                    //{
-                    //    userRole = "User";
-                    //}
-                }
-                <td>
-                   @articlesCount
-                </td>
-                <td>
-                    @commentsCount
-                </td>
-                <td>
-                    @*@userRole*@
-                </td>
-                <td>
-
-                    @Html.ActionLink("Details", "Details", new { id = user.Id }, new { @class = "btn-sm btn-primary" })
-
-                    @Html.ActionLink("Delete", "Delete", new { id = user.Id }, new { @class = "btn-sm btn-danger" })
-
-                </td>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Fullname
+                </th>
+                <th>
+                    Articles Created
+                </th>
+                <th>
+                    Comments Made
+                </th>
+                <th>
+                    User Type
+                </th>
+                <th>
+                    Actions
+                </th>
             </tr>
-        }
+        </thead>
+
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => user.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => user.FullName)
+                    </td>
+                    @{
+                        IEnumerable<Article> articles = ViewBag.Articles;
+                        IEnumerable<Comment> comments = ViewBag.Comments;
+
+                        var articlesCount = articles.Count(a => a.Author.Id == user.Id);
+                        var commentsCount = comments.Count(a => a.Author.Id == user.Id);
+
+                        // Mind wanna change this way of checking in which role is the current user
+                        //var userRole = string.Empty;
+                        //if (true)
+                        //{
+                        //    userRole = "Admin";
+                        //}
+                        //else if (true)
+                        //{
+                        //    userRole = "Moderator";
+                        //}
+                        //else
+                        //{
+                        //    userRole = "User";
+                        //}
+                    }
+                    <td>
+                        @articlesCount
+                    </td>
+                    <td>
+                        @commentsCount
+                    </td>
+                    <td>
+                        @*@userRole*@
+                    </td>
+                    <td>
+
+                        @Html.ActionLink("Details", "Details", new { id = user.Id }, new { @class = "btn-sm btn-primary" })
+
+                        @Html.ActionLink("Delete", "Delete", new { id = user.Id }, new { @class = "btn-sm btn-danger" })
+
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
 
-
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables")
+    <script>
+        $(document).ready(function () {
+            $('#userTable').DataTable();
+        });
+    </script>
+}
