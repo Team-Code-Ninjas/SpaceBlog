@@ -9,20 +9,17 @@
          @if (User.IsInRole("Administrators"))
          {
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin<span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@($"Hello {User.Identity.GetUserName()}")<span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                   <li>@Html.ActionLink("Change Password","ChangePassword","Manage")</li> 
-                   <li>@Html.ActionLink("Log in","Login","Account") </li>
-                    <li> <a href="#"> My Profile </a></li>
+                    <li>@Html.ActionLink("My Profile", "Profile", "Users")</li>
+                    <li>@Html.ActionLink("Manage Account", "Index", "Manage") </li>
+                    <li>
+                        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                    </li>
                 </ul>
             </li>
 
          }
-
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }
 }
