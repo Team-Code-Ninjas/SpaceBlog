@@ -68,6 +68,10 @@
                                 </ul>
                             </div>                           
                         }
+                        else
+                        {
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary"})
+                        }
                     </td>
                 </tr>
             }
