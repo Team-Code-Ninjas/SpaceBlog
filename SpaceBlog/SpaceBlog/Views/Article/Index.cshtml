@@ -56,14 +56,17 @@
 
                         @if (userInRole)
                         {
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn-sm btn-primary" })
-                        }
-
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn-sm btn-primary" })
-
-                        @if (userInRole)
-                        {
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn-sm btn-danger" })
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                   More
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</li>
+                                    <li>@Html.ActionLink("Details", "Details", new { id = item.Id })</li>
+                                    <li>@Html.ActionLink("Delete", "Delete", new { id = item.Id })</li>
+                                </ul>
+                            </div>                           
                         }
                     </td>
                 </tr>
