@@ -16,25 +16,66 @@ namespace SpaceBlog.Controllers
         private BlogDBContext db = new BlogDBContext();
 
         // GET: Admin/Index
-
         public ActionResult Index()
         {
-            //var currentUserId = HttpContext.User.Identity.GetUserId();
-
 
             var userViewModels = db.Users
                 .Select(UserToUserViewModel)
                 .ToArray();
 
-            //ViewBag.Articles = articles;
-            //ViewBag.Comments = comments;
+            return View(userViewModels);
+        }
 
-            //if (!User.IsInRole("Administrators"))
+        // GET: Admin/Suspend/5
+        public ActionResult Suspend(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var user = db.Users.Find(id);
+
+            // The Administartor should not be able to suspend himself
+            //if (user.Roles.Contains("Administrators"))
             //{
-            //    return RedirectToAction("/../"); // should display "You are not authorized to do that" view
+            //    return RedirectToAction("Index");
             //}
 
-            return View(userViewModels);
+            return View(user);
+        }
+
+        // POST: Admin/Suspend/5
+        [HttpPost, ActionName("Suspend")]
+        public ActionResult SuspendConfirmed(string id)
+        {
+            var user = db.Users.Find(id);
+            user.Suspended = true;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // GET: Admin/Activate/5
+        public ActionResult Activate(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var user = db.Users.Find(id);
+
+            return View(user);
+        }
+
+        // POST: Admin/Activate/5
+        [HttpPost, ActionName("Activate")]
+        public ActionResult ActivateConfirmed(string id)
+        {
+            var user = db.Users.Find(id);
+            user.Suspended = false;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         private UserViewModel UserToUserViewModel(ApplicationUser user)
@@ -64,39 +105,9 @@ namespace SpaceBlog.Controllers
                 userViewModel.UserType = "User";
             }
 
-
             userViewModel.Status = user.Suspended ? Status.Suspended : Status.Active;
 
             return userViewModel;
-        }
-
-        // GET: Admin/Suspend/5
-        public ActionResult Suspend(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var user = db.Users.Find(id);
-
-            // The Administartor should not be able to suspend himself
-            //if (true) 
-            //{
-            //    return RedirectToAction("Index");
-            //}
-
-            return View(user);
-        }
-
-        // POST: Admin/Suspend/5
-        [HttpPost, ActionName("Suspend")]
-        public ActionResult SuspendConfirmed(string id)
-        {
-            var user = db.Users.Find(id);
-            user.Suspended = true;
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

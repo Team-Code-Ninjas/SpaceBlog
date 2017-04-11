@@ -6,7 +6,7 @@
 
 <div class="container">
 
-    <h3>Are you sure you want to suspend this account?</h3>
+    <h3>Are you sure you want to activate this account?</h3>
     <div>
         <hr />
         <dl class="dl-horizontal">
@@ -57,7 +57,7 @@
             @Html.AntiForgeryToken()
 
             <div class="form-actions no-color">
-                <input type="submit" value="Suspend" class="btn btn-danger" />
+                <input type="submit" value="Activate" class="btn btn-danger" />
                 @Html.ActionLink("Back", "Index", new { id = Model.Id }, new { @class = "btn btn-primary" })
             </div>
         }
