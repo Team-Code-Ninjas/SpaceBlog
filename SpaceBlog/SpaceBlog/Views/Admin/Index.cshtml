@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ApplicationUser>
+﻿@model IEnumerable<UserViewModel>
 @using SpaceBlog.Models
 
 @{
@@ -57,55 +57,20 @@
                         @Html.DisplayFor(modelItem => user.FullName)
                     </td>
 
-                    @{
-                        IEnumerable<Article> articles = ViewBag.Articles;
-                        IEnumerable<Comment> comments = ViewBag.Comments;
-
-                        var articlesCount = articles.Count(a => a.Author.Id == user.Id);
-                        var commentsCount = comments.Count(a => a.Author.Id == user.Id);
-
-                        var status = string.Empty;
-
-                        if (user.Suspended)
-                        {
-                            status = "Suspended";
-                        }
-
-                        else
-                        {
-                            status = "Active";
-                        }
-
-                        // Mind wanna change this way of checking in which role is the current user
-                        //var userRole = string.Empty;
-                        //if (true)
-                        //{
-                        //    userRole = "Admin";
-                        //}
-                        //else if (true)
-                        //{
-                        //    userRole = "Moderator";
-                        //}
-                        //else
-                        //{
-                        //    userRole = "User";
-                        //}
-                    }
-
                     <td>
-                        @articlesCount
+                        @Html.DisplayFor(modelItem => user.ArticlesCreated)
                     </td>
 
                     <td>
-                        @commentsCount
+                        @Html.DisplayFor(modelItem => user.CommentsMade)
                     </td>
 
                     <td>
-                        @*@userRole*@
+                        @Html.DisplayFor(modelItem => user.UserType)
                     </td>
 
                     <td>
-                        @status
+                        @Html.DisplayFor(modelItem => user.Status)
                     </td>
 
                     <td>

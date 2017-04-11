@@ -1,45 +1,78 @@
 ﻿using Microsoft.AspNet.Identity;
 using SpaceBlog.Models;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System;
 
 namespace SpaceBlog.Controllers
 {
+    [Authorize(Roles = "Administrators")]
     public class AdminController : Controller
     {
 
         private BlogDBContext db = new BlogDBContext();
 
         // GET: Admin/Index
+
         public ActionResult Index()
         {
-            var currentUserId = HttpContext.User.Identity.GetUserId();
+            //var currentUserId = HttpContext.User.Identity.GetUserId();
 
-            var articles = db.Articles.Include(a=>a.Author).ToList();
-            var comments = db.Comments.Include(a => a.Author).ToList();
 
-            ViewBag.Articles = articles;
-            ViewBag.Comments = comments;
+            var userViewModels = db.Users
+                .Select(UserToUserViewModel)
+                .ToArray();
 
-            if (!User.IsInRole("Administrators"))
+            //ViewBag.Articles = articles;
+            //ViewBag.Comments = comments;
+
+            //if (!User.IsInRole("Administrators"))
+            //{
+            //    return RedirectToAction("/../"); // should display "You are not authorized to do that" view
+            //}
+
+            return View(userViewModels);
+        }
+
+        private UserViewModel UserToUserViewModel(ApplicationUser user)
+        {
+            var db = new BlogDBContext();
+
+            var userViewModel = new UserViewModel();
+
+            userViewModel.Id = user.Id;
+            userViewModel.UserName = user.UserName;
+            userViewModel.FullName = user.FullName;
+            userViewModel.ArticlesCreated = db.Articles.Include(a => a.Author).Count(a => a.Author.Id == user.Id);
+            userViewModel.CommentsMade = db.Comments.Include(a => a.Author).Count(a => a.Author.Id == user.Id);
+
+            var roles = db.Users.Include(a => a.Roles).FirstOrDefault(a => a.Id == user.Id).Roles.Select(a => a.ToString()).ToArray();
+
+            if (roles.Contains("Moderators"))
             {
-                return RedirectToAction("/../"); // should display "You are not authorized to do that" view
+                userViewModel.UserType = "Moderator";
+            }
+            else if (roles.Contains("Administrators"))
+            {
+                userViewModel.UserType = "Admin";
+            }
+            else
+            {
+                userViewModel.UserType = "User";
             }
 
-            return View(db.Users);
+
+            userViewModel.Status = user.Suspended ? Status.Suspended : Status.Active;
+
+            return userViewModel;
         }
 
         // GET: Admin/Suspend/5
-        [Authorize]
         public ActionResult Suspend(string id)
         {
-            if (!User.IsInRole("Administrators"))
-            {
-                return RedirectToAction("/../"); // should display "You are not authorized to do that" view
-            }
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -58,7 +91,6 @@ namespace SpaceBlog.Controllers
 
         // POST: Admin/Suspend/5
         [HttpPost, ActionName("Suspend")]
-        [ValidateAntiForgeryToken]
         public ActionResult SuspendConfirmed(string id)
         {
             var user = db.Users.Find(id);
