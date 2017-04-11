@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SpaceBlog.Models;
+using System.Data.Entity;
 
 namespace SpaceBlog.Controllers
 {
@@ -17,6 +18,8 @@ namespace SpaceBlog.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        private BlogDBContext db = new BlogDBContext();
 
         public AccountController()
         {
@@ -71,6 +74,12 @@ namespace SpaceBlog.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
+            }
+
+            var currentUser = UserManager.FindByEmail(model.Email).Id;
+            if (db.Users.Find(currentUser).Suspended)
+            {
+                return View("Suspended");
             }
 
             // This doesn't count login failures towards account lockout

@@ -18,18 +18,27 @@
                 <th>
                     Username
                 </th>
+
                 <th>
                     Fullname
                 </th>
+
                 <th>
                     Articles Created
                 </th>
+
                 <th>
                     Comments Made
                 </th>
+
                 <th>
                     User Type
                 </th>
+
+                <th>
+                    Status
+                </th>
+
                 <th>
                     Actions
                 </th>
@@ -43,15 +52,29 @@
                     <td>
                         @Html.DisplayFor(modelItem => user.UserName)
                     </td>
+
                     <td>
                         @Html.DisplayFor(modelItem => user.FullName)
                     </td>
+
                     @{
                         IEnumerable<Article> articles = ViewBag.Articles;
                         IEnumerable<Comment> comments = ViewBag.Comments;
 
                         var articlesCount = articles.Count(a => a.Author.Id == user.Id);
                         var commentsCount = comments.Count(a => a.Author.Id == user.Id);
+
+                        var status = string.Empty;
+
+                        if (user.Suspended)
+                        {
+                            status = "Suspended";
+                        }
+
+                        else
+                        {
+                            status = "Active";
+                        }
 
                         // Mind wanna change this way of checking in which role is the current user
                         //var userRole = string.Empty;
@@ -68,15 +91,23 @@
                         //    userRole = "User";
                         //}
                     }
+
                     <td>
                         @articlesCount
                     </td>
+
                     <td>
                         @commentsCount
                     </td>
+
                     <td>
                         @*@userRole*@
                     </td>
+
+                    <td>
+                        @status
+                    </td>
+
                     <td>
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -85,7 +116,7 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Details", "Details", new { id = user.Id })</li>
-                                <li>@Html.ActionLink("Delete", "Delete", new { id = user.Id })</li>
+                                <li>@Html.ActionLink("Suspend", "Suspend", new { id = user.Id })</li>
                             </ul>
                         </div> 
                     </td>

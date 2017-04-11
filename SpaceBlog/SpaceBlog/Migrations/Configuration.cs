@@ -80,7 +80,8 @@ namespace SpaceBlog.Migrations
             {
                 UserName = email,
                 Email = email,
-                FullName = fullName
+                FullName = fullName,
+                Suspended = false
             };
 
             var userCreateResult = userManager.Create(user, password);

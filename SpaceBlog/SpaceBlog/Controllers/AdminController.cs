@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
 using SpaceBlog.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SpaceBlog.Controllers
@@ -34,35 +31,41 @@ namespace SpaceBlog.Controllers
             return View(db.Users);
         }
 
-        //// GET: Admin/Delete/5
-        //[Authorize]
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (!User.IsInRole("Administrators"))
-        //    {
-        //        return RedirectToAction("/../"); // should display "You are not authorized to do that" view
-        //    }
+        // GET: Admin/Suspend/5
+        [Authorize]
+        public ActionResult Suspend(string id)
+        {
+            if (!User.IsInRole("Administrators"))
+            {
+                return RedirectToAction("/../"); // should display "You are not authorized to do that" view
+            }
 
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-        //    var user = db.Users.Find(id);
+            var user = db.Users.Find(id);
 
-        //    return View(user);
-        //}
+            // The Administartor should not be able to suspend himself
+            //if (true) 
+            //{
+            //    return RedirectToAction("Index");
+            //}
 
-        //// POST: Admin/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    ApplicationUser user = db.Users.Find(id);
-        //    db.Users.Remove(user);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+            return View(user);
+        }
+
+        // POST: Admin/Suspend/5
+        [HttpPost, ActionName("Suspend")]
+        [ValidateAntiForgeryToken]
+        public ActionResult SuspendConfirmed(string id)
+        {
+            var user = db.Users.Find(id);
+            user.Suspended = true;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         protected override void Dispose(bool disposing)
         {

@@ -292,6 +292,8 @@
     <Content Include="Views\Shared\_CommentBox.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\Admin\Suspend.cshtml" />
+    <Content Include="Views\Account\Suspended.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
