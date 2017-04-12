@@ -17,7 +17,11 @@ namespace SpaceBlog.Models
         }
 
         public virtual DbSet<Article> Articles { get; set; }
-        public virtual DbSet<Comment> Comments { get; set;  }
+
+        public virtual DbSet<Comment> Comments { get; set; }
+        
         public virtual DbSet<Contact> Contacts { get; set; }
+        
+        public virtual DbSet<Rating> Ratings { get; set; }
     }
 }

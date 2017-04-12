@@ -45,7 +45,7 @@
                     @foreach (var comment in Model.Comments)
                     {
                         <div class="meta-posted">Posted by @comment.Author.FullName</div>
-                        <div class="meta-posted">On @comment.Date</div>         
+                        <div class="meta-posted">On @comment.Date</div>
                         <div class="meta-commentC">
                             <blockquote class="blockquote">@comment.Content</blockquote>
                         </div>
@@ -67,7 +67,7 @@
         }
     </div>
 </div>
- 
+
 @{
     var comments = (IEnumerable<SpaceBlog.Models.Comment>)ViewBag.Comments;
     var ratingSum = ViewBag.RatingSum;
@@ -87,13 +87,16 @@
 @Html.Partial("_CommentBox")
 
 <script>
-    function SCRate() {
-        for (var i = 1; i <= @totalRating; i++) {
+    function SCRate()
+    {
+        for (var i = 1; i <= @totalRating; i++)
+        {
             $("#sRate" + i).attr('class', 'starGlowN');
         }
     }
 
-    $(function() {
+    $(function()
+    {
         SCRate();
     });
 </script>

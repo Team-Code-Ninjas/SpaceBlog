@@ -10,8 +10,11 @@ namespace SpaceBlog.Models
     {
         [Required]
         public int ArticleId { get; set; }
+        
         [Required]
         [DataType(DataType.MultilineText)]
         public string Comment { get; set; }
+
+        public int Rating { get; set; }
     }
 }

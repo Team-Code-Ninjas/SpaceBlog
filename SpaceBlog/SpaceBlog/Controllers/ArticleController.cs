@@ -54,6 +54,7 @@ namespace SpaceBlog.Models
             ViewBag.Comments = comments;
 
             var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
+            ViewBag.Ratings = ratings;
 
             //var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
             /* if (ratings.Count() > 0)
@@ -217,6 +218,16 @@ namespace SpaceBlog.Models
             };
 
             article.Comments.Add(comment);
+
+            var rating = new Rating()
+            {
+                ArticleId = articleComment.ArticleId,
+                AuthorId = authorId,
+                Value = articleComment.Rating
+            };
+
+            article.Ratings.Add(rating);
+
             db.SaveChanges();
 
             return RedirectToAction("Index");

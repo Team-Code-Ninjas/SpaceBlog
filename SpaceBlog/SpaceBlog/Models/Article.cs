@@ -31,6 +31,9 @@ namespace SpaceBlog.Models
         public string AuthorId { get; set; }
 
         public virtual ApplicationUser Author { get; set; }
+        
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }
