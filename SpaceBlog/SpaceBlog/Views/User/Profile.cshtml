@@ -1,7 +1,8 @@
-﻿@model  SpaceBlog.Models.ApplicationUser
+﻿@model  SpaceBlog.Models.UserViewModel
+@using SpaceBlog.Utilities;
 
 @{
-    ViewBag.Title = "User - ";
+    ViewBag.Title = Model.FullName + "'s Profile";
 }
 
 <div class="container">
@@ -36,13 +37,46 @@
                     Title
                 </th>
                 <th>
-                    Context
+                    Content
                 </th>
                 <th>
                     Action
                 </th>
             </tr>
         </thead>
+
+        <tbody>
+            @foreach (var article in Model.Articles)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelitem => article.Title)
+                    </td>
+
+                    <td>
+                        @Html.Raw(HttpUtility.HtmlDecode(Utils.CutHtmlText(article.Content, 50)))
+                    </td>
+
+                     <td>
+                        <div class="dropdown">
+
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                               More
+                                <span class="caret"></span>
+                            </button>
+
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Edit", "../Article/Edit", new { id = article.Id })</li>
+                                <li>@Html.ActionLink("Details", "../Article/Details", new { id = article.Id })</li>
+                                <li>@Html.ActionLink("Delete", "../Article/Delete", new { id = article.Id })</li>
+                            </ul>
+
+                        </div>                           
+                    </td>
+                </tr>
+            }
+        </tbody>
+
     </table>
     <hr />
     <br />
@@ -56,10 +90,41 @@
             <tr>
                 <th>
                     Comments
-                </th>                    
+                </th>  
+                
+                <th>
+                    Actions
+                </th>                  
             </tr>
         </thead>
-    </table>
+
+        <tbody>
+            @foreach (var comment in Model.Comments)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelitem => comment.Content)
+                    </td>
+
+                    <td>
+                        <div class="dropdown" >
+
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                               More
+                                <span class="caret"></span>
+                            </button>
+
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Edit", "/", new { id = comment.Id })</li>
+                                <li>@Html.ActionLink("Delete", "/", new { id = comment.Id })</li>
+                            </ul>
+
+                        </div>                           
+                    </td>
+                </tr>
+            }
+       </tbody>
+</table>
 </div> 
 
 @section Scripts {

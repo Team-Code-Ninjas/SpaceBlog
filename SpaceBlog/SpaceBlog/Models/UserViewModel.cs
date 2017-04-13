@@ -1,4 +1,6 @@
-﻿namespace SpaceBlog.Models
+﻿using System.Collections.Generic;
+
+namespace SpaceBlog.Models
 {
     public class UserViewModel
     {
@@ -23,6 +25,16 @@
         }
 
         public int CommentsMade
+        {
+            get; set;
+        }
+
+        public List<Article> Articles
+        {
+            get; set;
+        }
+
+        public List<Comment> Comments
         {
             get; set;
         }
