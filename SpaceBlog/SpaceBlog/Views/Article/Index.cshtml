@@ -41,7 +41,7 @@
                         @Html.DisplayFor(modelItem => item.Title)
                     </td>
                     <td>
-                        @Html.Raw(@Utils.CutHtmlText(item.Content, 50))
+                        @Html.Raw(Utils.CutHtmlText(Utils.CutImageTag(HttpUtility.HtmlDecode(item.Content)), 50))
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Date)

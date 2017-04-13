@@ -18,7 +18,7 @@
                             @item.Title
                         </h2>
                         <h3 class="post-subtitle">
-                          @Html.Raw(@Utils.CutHtmlText(item.Content, 200))
+                          @Html.Raw(Utils.CutHtmlText(Utils.CutImageTag(HttpUtility.HtmlDecode(item.Content)), 200))
                         </h3>
                     </a>
                     <div class="pull-right">

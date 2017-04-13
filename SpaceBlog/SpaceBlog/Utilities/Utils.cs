@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text.RegularExpressions;
 
     public class Utils
     {
@@ -56,5 +57,14 @@
                 return htmlTag.Length * 2;
             }
         }
+
+        public static string CutImageTag(string imageTag)
+        {
+            //var regex = new Regex("<img.*?>");
+            var newText = Regex.Replace(imageTag, "<img.*?>", " (image) ");
+
+            return newText;
+        }
+        //
     }
 }
