@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
 
 namespace SpaceBlog.Models
 {
@@ -13,7 +14,8 @@ namespace SpaceBlog.Models
             Suspended = false;
         }
 
-        public string FullName { get; internal set; }
+        [Required]
+        public string FullName { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
