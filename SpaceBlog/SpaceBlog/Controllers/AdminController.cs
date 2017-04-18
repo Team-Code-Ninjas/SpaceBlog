@@ -108,21 +108,22 @@ namespace SpaceBlog.Controllers
             userViewModel.FullName = user.FullName;
             userViewModel.ArticlesCreated = db.Articles.Include(a => a.Author).Count(a => a.Author.Id == user.Id);
             userViewModel.CommentsMade = db.Comments.Include(a => a.Author).Count(a => a.Author.Id == user.Id);
+            userViewModel.DateRegistered = user.DateRegistered;
 
-            var roles = db.Users.Include(a => a.Roles).FirstOrDefault(a => a.Id == user.Id).Roles.Select(a => a.ToString()).ToArray();
-
-            if (roles.Contains("Moderators"))
-            {
-                userViewModel.UserType = "Moderator";
-            }
-            else if (roles.Contains("Administrators"))
-            {
-                userViewModel.UserType = "Admin";
-            }
-            else
-            {
-                userViewModel.UserType = "User";
-            }
+            var userRoles = user.Roles;
+            
+            //if (userRoles.Contains("Moderators"))
+            //{
+            //    userViewModel.UserType = "Moderator";
+            //}
+            //else if (userRoles.Contains("Administrators"))
+            //{
+            //    userViewModel.UserType = "Admin";
+            //}
+            //else
+            //{
+            //    userViewModel.UserType = "User";
+            //}
 
             userViewModel.Status = user.Suspended ? Status.Suspended : Status.Active;
 
