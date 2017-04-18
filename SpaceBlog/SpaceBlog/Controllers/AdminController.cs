@@ -78,6 +78,24 @@ namespace SpaceBlog.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Details(string id)
+        {
+            var user = db.Users.Find(id);
+
+            var userModel = new UserViewModel();
+
+            var allArticles = db.Articles.Include(a => a.Author).ToList();
+            var allComments = db.Comments.Include(a => a.Author).ToList();
+
+            userModel.Id = user.Id;
+            userModel.UserName = user.UserName;
+            userModel.FullName = user.FullName;
+            userModel.Articles = allArticles.Where(b => b.Author == user).ToList();
+            userModel.Comments = allComments.Where(b => b.Author == user).ToList();
+
+            return View(userModel);
+        }
+
         private UserViewModel UserToUserViewModel(ApplicationUser user)
         {
             var db = new BlogDBContext();
