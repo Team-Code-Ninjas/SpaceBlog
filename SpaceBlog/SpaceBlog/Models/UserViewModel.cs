@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SpaceBlog.Models
 {
@@ -45,6 +46,11 @@ namespace SpaceBlog.Models
         }
 
         public Status Status
+        {
+            get; set;
+        }
+
+        public DateTime DateRegistered
         {
             get; set;
         }

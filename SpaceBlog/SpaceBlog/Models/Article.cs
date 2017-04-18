@@ -8,7 +8,7 @@ namespace SpaceBlog.Models
     {
         public Article()
         {
-            Date = DateTime.Now;
+            this.Date = DateTime.Now;
             this.Comments = new List<Comment>();
         }
 
@@ -21,13 +21,14 @@ namespace SpaceBlog.Models
 
         [Required]
         public string Content { get; set; }
+
         [Required]
         public DateTime Date { get; set; }
 
         /// public virtual IEnumerable<Comment> Comments { get; set; }
         /// public Category Category { get; set; }
         /// public virtual IEnumerable<Tag> Tags  { get; set; }
-        
+
         public string AuthorId { get; set; }
 
         public virtual ApplicationUser Author { get; set; }
