@@ -110,7 +110,7 @@ namespace SpaceBlog.Controllers
             userViewModel.CommentsMade = db.Comments.Include(a => a.Author).Count(a => a.Author.Id == user.Id);
             userViewModel.DateRegistered = user.DateRegistered;
 
-            var userRoles = user.Roles;
+            //var userRoles = user.Roles;
             
             //if (userRoles.Contains("Moderators"))
             //{
