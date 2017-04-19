@@ -107,7 +107,8 @@ namespace SpaceBlog.Migrations
                 UserName = email,
                 Email = email,
                 FullName = fullName,
-                Suspended = false
+                Suspended = false,
+                DateRegistered = DateTime.Now
             };
 
             var userCreateResult = userManager.Create(user, password);

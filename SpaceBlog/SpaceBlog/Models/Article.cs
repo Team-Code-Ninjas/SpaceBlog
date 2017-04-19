@@ -9,7 +9,7 @@ namespace SpaceBlog.Models
     {
         public Article()
         {
-            Date = DateTime.Now;
+            this.Date = DateTime.Now;
             this.Comments = new List<Comment>();
         }
 
@@ -22,6 +22,7 @@ namespace SpaceBlog.Models
 
         [Required]
         public string Content { get; set; }
+
         [Required]
         public DateTime Date { get; set; }
 

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace SpaceBlog.Models
 {
@@ -11,11 +12,15 @@ namespace SpaceBlog.Models
     {
         public ApplicationUser()
         {
-            Suspended = false;
+            this.Suspended = false;
+            this.DateRegistered = DateTime.Now;
         }
 
         [Required]
         public string FullName { get; set; }
+
+        [Required]
+        public DateTime DateRegistered { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

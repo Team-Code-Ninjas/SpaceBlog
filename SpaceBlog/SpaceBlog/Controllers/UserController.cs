@@ -29,6 +29,7 @@ namespace SpaceBlog.Controllers
             userModel.FullName = user.FullName;
             userModel.Articles = allArticles.Where(b => b.Author == user).ToList();
             userModel.Comments = allComments.Where(b => b.Author == user).ToList();
+            userModel.DateRegistered = user.DateRegistered;
 
             return View(userModel);
         }

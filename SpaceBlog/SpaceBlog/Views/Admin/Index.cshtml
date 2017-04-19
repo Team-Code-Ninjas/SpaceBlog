@@ -20,7 +20,11 @@
                 </th>
 
                 <th>
-                    Fullname
+                    Full Name
+                </th>
+
+                <th>
+                    Registered On
                 </th>
 
                 <th>
@@ -55,6 +59,10 @@
 
                     <td>
                         @Html.DisplayFor(modelItem => user.FullName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => user.DateRegistered)
                     </td>
 
                     <td>
