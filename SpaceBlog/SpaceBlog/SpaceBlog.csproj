@@ -197,6 +197,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -308,6 +309,7 @@
     <Folder Include="Scripts\Tinymce\plugins\" />
     <Folder Include="Scripts\Tinymce\skins\" />
     <Folder Include="Scripts\Tinymce\themes\" />
+    <Folder Include="Views\Comment\" />
     <Folder Include="Views\Rating\" />
     <Folder Include="Views\Shared\UserPartial\" />
   </ItemGroup>

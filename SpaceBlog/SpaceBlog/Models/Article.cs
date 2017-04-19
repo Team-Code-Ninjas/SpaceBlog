@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace SpaceBlog.Models
 {
@@ -27,7 +28,7 @@ namespace SpaceBlog.Models
         /// public virtual IEnumerable<Comment> Comments { get; set; }
         /// public Category Category { get; set; }
         /// public virtual IEnumerable<Tag> Tags  { get; set; }
-        
+
         public string AuthorId { get; set; }
 
         public virtual ApplicationUser Author { get; set; }

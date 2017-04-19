@@ -1,4 +1,6 @@
-﻿@model SpaceBlog.Models.Article
+﻿@using SpaceBlog.Models;
+
+@model SpaceBlog.Models.Article
 
 @{
     ViewBag.Title = "Details";
@@ -59,6 +61,15 @@
                         <div class="meta-commentC">
                             <blockquote class="blockquote">@comment.Content</blockquote>
                         </div>
+                        if (User.IsInRole("Administrators") || 
+                            User.IsInRole("Moderators") || 
+                            comment.Author.UserName == User.Identity.Name)
+                        {
+                            <div>
+                                @Html.ActionLink("Edit", "Edit", null, new { @class = "btn btn-sm btn-primary" })
+                                @Html.ActionLink("Delete", "Delete", "Comment", new { id = comment.Id }, new { @class = "btn btn-sm btn-danger" })
+                            </div>
+                        }
                         <br />
                     }
                 </div>
@@ -83,7 +94,7 @@
 }
 
 <hr />
-@Html.Partial("_CommentBox")
+@Html.Partial("_CommentBox", new CommentViewModel { ArticleId = Model.Id, AuthorId = Model.Author.Id })
 
 <script>
     function SCRate()
