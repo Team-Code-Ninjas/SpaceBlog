@@ -1,4 +1,5 @@
-﻿using SpaceBlog.Models;
+﻿using Microsoft.AspNet.Identity;
+using SpaceBlog.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +14,22 @@ namespace SpaceBlog.Controllers
         private readonly BlogDBContext _db = new BlogDBContext();
 
         [HttpPost]
+        [Authorize]
         public ActionResult Create(CommentViewModel commentViewModel)
         {
             if (!ModelState.IsValid)
-                return PartialView("_CommentBox", commentViewModel);
+                //return PartialView("_CommentBox", commentViewModel);
+                return RedirectToAction("Details", "Article", new { id = commentViewModel.ArticleId });
 
             var article = _db.Articles.Find(commentViewModel.ArticleId);
             if (article == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
-                    $"Article with id '{commentViewModel.ArticleId}' does not exist");
-            var author = _db.Users.Find(commentViewModel.AuthorId);
+                    $"Invalid article specified.");
+
+            var author = _db.Users.Find(User.Identity.GetUserId());
             if (author ==  null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
-                    $"User with id '{commentViewModel.AuthorId}' does not exist");
+                    $"Invalid comment author specified.");
 
             var comment = new Comment
             {
@@ -38,7 +42,7 @@ namespace SpaceBlog.Controllers
             _db.Comments.Add(comment);
             _db.SaveChanges();
 
-            return RedirectToAction("Index", "Article");
+            return RedirectToAction("Details", "Article", new { id = commentViewModel.ArticleId });
         }
 
         [HttpDelete]
