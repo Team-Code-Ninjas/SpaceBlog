@@ -24,7 +24,6 @@ namespace SpaceBlog.Models
 
     public class CommentViewModel
     {
-        public string AuthorId { get; set; }
         public int ArticleId { get; set; }
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
