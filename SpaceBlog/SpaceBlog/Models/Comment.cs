@@ -11,11 +11,23 @@ namespace SpaceBlog.Models
         
         [Required]
         public ApplicationUser Author { get; set; }
+
         [Required]
         public DateTime Date { get; set; }
+
         [Required]
         public string Content { get; set; }
+
         [Required]
         public Article Article { get; set; }
     }
+
+    public class CommentViewModel
+    {
+        public string AuthorId { get; set; }
+        public int ArticleId { get; set; }
+        [DataType(DataType.MultilineText)]
+        public string Content { get; set; }
+    }
+
 }

@@ -225,6 +225,7 @@ namespace SpaceBlog.Models
                 AuthorId = authorId,
                 Value = articleComment.Rating
             };
+            
 
             article.Ratings.Add(rating);
 
