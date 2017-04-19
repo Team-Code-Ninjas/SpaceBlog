@@ -11,11 +11,11 @@ namespace SpaceBlog.Models
     {
         public int Id { get; set; }
 
-        [Range(1, 5)]
+        [Range(0, 5)]
         public decimal Value { get; set; }
 
         public string AuthorId { get; set; }
-
+ 
         [ForeignKey("AuthorId")]
         public virtual ApplicationUser Author { get; set; }
 
