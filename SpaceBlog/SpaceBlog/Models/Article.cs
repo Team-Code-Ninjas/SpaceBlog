@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-
-namespace SpaceBlog.Models
+﻿namespace SpaceBlog.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class Article
     {
         public Article()

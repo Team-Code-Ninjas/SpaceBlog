@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SpaceBlog.Models
+﻿namespace SpaceBlog.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Contact
     {
         public int Id { get; set; }
@@ -19,6 +19,5 @@ namespace SpaceBlog.Models
         [Required]
         [DataType(DataType.MultilineText)]
         public string Message { get; set; }
-
     }
 }

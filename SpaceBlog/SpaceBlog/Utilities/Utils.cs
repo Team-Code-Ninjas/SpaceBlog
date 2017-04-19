@@ -60,11 +60,10 @@
 
         public static string CutImageTag(string imageTag)
         {
-            //var regex = new Regex("<img.*?>");
+            ///var regex = new Regex("<img.*?>");
             var newText = Regex.Replace(imageTag, "<img.*?>", " (image) ");
 
             return newText;
         }
-        //
     }
 }

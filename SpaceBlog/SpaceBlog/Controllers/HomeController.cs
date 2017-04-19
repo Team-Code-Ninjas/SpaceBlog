@@ -1,11 +1,11 @@
-﻿using System.Web.Mvc;
-using SpaceBlog.Models;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-
-namespace SpaceBlog.Controllers
+﻿namespace SpaceBlog.Controllers
 {
+    using System.Web.Mvc;
+    using SpaceBlog.Models;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web;
+
     public class HomeController : Controller
     {
         private readonly BlogDBContext db = new BlogDBContext();
