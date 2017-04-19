@@ -10,7 +10,6 @@
             @using (Html.BeginForm("Create", "Comment", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
-                @Html.HiddenFor(m => m.AuthorId)
                 <div class="form-horizontal">
                     <div class="form-group">
                         <label class="col-md-4 control-label">
