@@ -71,6 +71,9 @@ namespace SpaceBlog.Models
              }
             */
 
+            var isUserLoggedIn = User.Identity.GetUserId() != null;
+            ViewBag.IsUserLoggedIn = isUserLoggedIn;
+
             return View(article);
         }
 
@@ -225,7 +228,7 @@ namespace SpaceBlog.Models
                 AuthorId = authorId,
                 Value = articleComment.Rating
             };
-            
+
 
             article.Ratings.Add(rating);
 
