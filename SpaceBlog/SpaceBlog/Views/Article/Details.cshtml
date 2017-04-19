@@ -57,12 +57,12 @@
                     @foreach (var comment in Model.Comments)
                     {
                         <div class="meta-posted">Posted by @comment.Author.FullName</div>
-                        <div class="meta-posted">On @comment.Date</div>
+                        <div class="meta-posted postedDate">On @comment.Date</div>
                         <div class="meta-commentC">
                             <blockquote class="blockquote">@comment.Content</blockquote>
                         </div>
-                        if (User.IsInRole("Administrators") || 
-                            User.IsInRole("Moderators") || 
+                        if (User.IsInRole("Administrators") ||
+                            User.IsInRole("Moderators") ||
                             comment.Author.UserName == User.Identity.Name)
                         {
                             <div>
@@ -76,6 +76,15 @@
             </div>
         </div>
     </aside>
+
+    @if (ViewBag.IsUserLoggedIn)
+    {
+        @Html.Partial("_CommentBox", new CommentViewModel { ArticleId = Model.Id })
+    }
+    else
+    {
+        <p>You're not logged in please <a href="/Account/Login">log in</a></p>
+    }
 </div>
 
 @{
@@ -94,7 +103,8 @@
 }
 
 <hr />
-@Html.Partial("_CommentBox", new CommentViewModel { ArticleId = Model.Id, AuthorId = Model.Author.Id })
+
+
 
 <script>
     function SCRate()
@@ -108,5 +118,46 @@
     $(function()
     {
         SCRate();
+    });
+</script>
+
+<script type="text/javascript">
+    function timeDifference(date) {
+        date = new Date(date.slice(3));
+
+        let current = new Date();
+
+        let msPerMinute = 60 * 1000;
+        let msPerHour = msPerMinute * 60;
+        let msPerDay = msPerHour * 24;
+        let msPerMonth = msPerDay * 30;
+        let msPerYear = msPerDay * 365;
+
+        var elapsed = current - date;
+
+        if (elapsed < msPerMinute) {
+            return Math.round(elapsed / 1000) + ' seconds ago';
+        }
+        else if (elapsed < msPerHour) {
+            return Math.round(elapsed / msPerMinute) + ' minutes ago';
+        }
+        else if (elapsed < msPerDay ) {
+            return Math.round(elapsed / msPerHour ) + ' hours ago';
+        }
+        else if (elapsed < msPerMonth) {
+            return 'approximately ' + Math.round(elapsed / msPerDay) + ' days ago';
+        }
+        else if (elapsed < msPerYear) {
+            return 'approximately ' + Math.round(elapsed / msPerMonth) + ' months ago';
+        }
+        else {
+            return 'approximately ' + Math.round(elapsed / msPerYear ) + ' years ago';
+        }
+    }
+
+    $(function(){
+        $('.postedDate').each(function() {
+            $(this).text(timeDifference($(this).text()))
+        });
     });
 </script>
