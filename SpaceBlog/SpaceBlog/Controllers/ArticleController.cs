@@ -1,13 +1,14 @@
-﻿namespace SpaceBlog.Models
-{
-    using Microsoft.AspNet.Identity;
-    using System;
-    using System.Data.Entity;
-    using System.Linq;
-    using System.Net;
-    using System.Web;
-    using System.Web.Mvc;
+﻿using Microsoft.AspNet.Identity;
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
 
+namespace SpaceBlog.Models
+{
     public class ArticleController : Controller
     {
         private BlogDBContext db = new BlogDBContext();
@@ -15,9 +16,7 @@
         // GET: Articles
         public ActionResult Index()
         {
-            return View(db.Articles.Include(a => a.Author)
-                .ToList()
-                .Select(x => new Article
+            return View(db.Articles.Include(a => a.Author).ToList().Select(x => new Article
             {
                 Id = x.Id,
                 Content = HttpUtility.HtmlDecode(x.Content),
@@ -51,24 +50,14 @@
 
             ViewBag.ArticleId = id.Value;
 
-            var comments = db
-                .Comments
-                .Where(d => d.Article.Id.Equals(id.Value))
-                .ToList();
-
+            var comments = db.Comments.Where(d => d.Article.Id.Equals(id.Value)).ToList();
             ViewBag.Comments = comments;
 
-            var ratings = db
-                .Articles
-                .SelectMany(a => a.Comments)
-                .Where(d => d.Article.Id.Equals(id.Value))
-                .ToList();
-
+            var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
             ViewBag.Ratings = ratings;
 
-            /*
-            var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
-             if (ratings.Count() > 0)
+            //var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
+            /* if (ratings.Count() > 0)
              {
                  var ratingSum = ratings.Sum(d => d.Value);
                  ViewBag.RatingSum = ratingSum;
@@ -81,6 +70,9 @@
                  ViewBag.RatingCount = 0;
              }
             */
+
+            var isUserLoggedIn = User.Identity.GetUserId() != null;
+            ViewBag.IsUserLoggedIn = isUserLoggedIn;
 
             return View(article);
         }
@@ -101,10 +93,7 @@
         {
             if (ModelState.IsValid)
             {
-                var currentUserId = HttpContext
-                    .User.Identity
-                    .GetUserId();
-
+                var currentUserId = HttpContext.User.Identity.GetUserId();
                 article.Content = HttpUtility.HtmlEncode(article.Content);
                 article.Author = db.Users.Find(currentUserId);
                 db.Articles.Add(article);
@@ -125,15 +114,8 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var currentUserId = HttpContext
-                .User
-                .Identity
-                .GetUserId();
-
-            var currentArticle = db
-                .Articles
-                .Include(a => a.Author)
-                .FirstOrDefault(a => a.Id == id);
+            var currentUserId = HttpContext.User.Identity.GetUserId();
+            var currentArticle = db.Articles.Include(a => a.Author).FirstOrDefault(a => a.Id == id);
 
             if (currentArticle == null)
             {
@@ -178,15 +160,8 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var currentUserId = HttpContext
-                .User
-                .Identity
-                .GetUserId();
-
-            var currentArticle = db
-                .Articles
-                .Include(a => a.Author)
-                .FirstOrDefault(a => a.Id == id);
+            var currentUserId = HttpContext.User.Identity.GetUserId();
+            var currentArticle = db.Articles.Include(a => a.Author).FirstOrDefault(a => a.Id == id);
 
             if (currentArticle == null)
             {
@@ -196,7 +171,6 @@
             if (currentUserId == currentArticle.Author.Id || User.IsInRole("Administrators") || User.IsInRole("Moderators"))
             {
                 currentArticle.Content = HttpUtility.HtmlDecode(currentArticle.Content);
-
                 return View(currentArticle);
             }
 
@@ -212,7 +186,6 @@
             Article article = db.Articles.Find(id);
             db.Articles.Remove(article);
             db.SaveChanges();
-
             return RedirectToAction("Index");
         }
 
@@ -232,14 +205,9 @@
         [ValidateAntiForgeryToken]
         public ActionResult PostComment(ArticleCommentViewModel articleComment)
         {
-            var article = db
-                .Articles
-                .SingleOrDefault(a => a.Id == articleComment.ArticleId);
-
+            var article = db.Articles.SingleOrDefault(a => a.Id == articleComment.ArticleId);
             if (article == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
 
             var authorId = User.Identity.GetUserId();
             var author = db.Users.FirstOrDefault(a => a.Id == authorId);
@@ -260,7 +228,8 @@
                 AuthorId = authorId,
                 Value = articleComment.Rating
             };
-            
+
+
             article.Ratings.Add(rating);
 
             db.SaveChanges();

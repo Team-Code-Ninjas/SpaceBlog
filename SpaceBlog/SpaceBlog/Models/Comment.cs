@@ -1,8 +1,9 @@
-﻿namespace SpaceBlog.Models
-{
-    using System;
-    using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace SpaceBlog.Models
+{
     public class Comment
     {
         [Key]
@@ -23,11 +24,9 @@
 
     public class CommentViewModel
     {
-        public string AuthorId { get; set; }
-
         public int ArticleId { get; set; }
-
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
     }
+
 }
