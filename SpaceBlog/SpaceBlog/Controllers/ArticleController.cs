@@ -12,7 +12,6 @@
     public class ArticleController : Controller
     {
         private BlogDBContext db = new BlogDBContext();
-        private bool isCurrentUserID = 
 
 
         // GET: Articles
