@@ -81,7 +81,6 @@ namespace SpaceBlog.Migrations
                 Content = content,
                 Date = date,
                 Author = author
-
             };
 
             db.Articles.Add(article);

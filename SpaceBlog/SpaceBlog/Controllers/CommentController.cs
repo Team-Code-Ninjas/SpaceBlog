@@ -16,7 +16,7 @@
         {
             if (!ModelState.IsValid)
             {
-                //return PartialView("_CommentBox", commentViewModel);
+                /// return PartialView("_CommentBox", commentViewModel);
                 return RedirectToAction("Details", "Article", new { id = commentViewModel.ArticleId });
             }
 

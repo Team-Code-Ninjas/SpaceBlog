@@ -309,8 +309,6 @@
     <Folder Include="Scripts\Tinymce\plugins\" />
     <Folder Include="Scripts\Tinymce\skins\" />
     <Folder Include="Scripts\Tinymce\themes\" />
-    <Folder Include="Views\Comment\" />
-    <Folder Include="Views\Rating\" />
     <Folder Include="Views\Shared\UserPartial\" />
   </ItemGroup>
   <ItemGroup>

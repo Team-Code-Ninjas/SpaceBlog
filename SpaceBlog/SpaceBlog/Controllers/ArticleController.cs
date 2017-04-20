@@ -13,7 +13,6 @@
     {
         private BlogDBContext db = new BlogDBContext();
 
-
         // GET: Articles
         public ActionResult Index()
         {
@@ -66,8 +65,9 @@
 
             ViewBag.Ratings = ratings;
 
-            //var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
-            /* if (ratings.Count() > 0)
+            /*
+            var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
+             if (ratings.Count() > 0)
              {
                  var ratingSum = ratings.Sum(d => d.Value);
                  ViewBag.RatingSum = ratingSum;
@@ -202,7 +202,6 @@
                 return HttpNotFound();
             }
 
-
             if (currentUserId == currentArticle.Author.Id || User.IsInRole("Administrators") || User.IsInRole("Moderators"))
             {
                 currentArticle.Content = HttpUtility.HtmlDecode(currentArticle.Content);
@@ -274,7 +273,6 @@
                 AuthorId = authorId,
                 Value = articleComment.Rating
             };
-
 
             article.Ratings.Add(rating);
 
