@@ -1,9 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace SpaceBlog.Models
+﻿namespace SpaceBlog.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class Comment
     {
         [Key]
@@ -34,5 +34,4 @@ namespace SpaceBlog.Models
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
     }
-
 }

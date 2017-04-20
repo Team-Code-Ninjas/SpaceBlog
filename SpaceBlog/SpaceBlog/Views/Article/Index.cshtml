@@ -50,10 +50,9 @@
                         @Html.DisplayFor(modelItem => item.Author.FullName)
                     </td>
                     <td>
-                        @{
+                        @{ 
                             var userInRole = User.IsInRole("Administrators") || User.IsInRole("Moderators") || User.Identity.Name == item.Author.UserName;
                         }
-
                         @if (userInRole)
                         {
                             <div class="dropdown">

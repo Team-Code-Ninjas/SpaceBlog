@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SpaceBlog.Models
+﻿namespace SpaceBlog.Models
 {
+    using System;
+    using System.Collections.Generic;
+
     public class UserViewModel
     {
         public string Id

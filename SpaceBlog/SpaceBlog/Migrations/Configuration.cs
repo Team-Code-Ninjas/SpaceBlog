@@ -1,11 +1,11 @@
 namespace SpaceBlog.Migrations
 {
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using Models;
     using System;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<BlogDBContext>
     {
@@ -81,7 +81,6 @@ namespace SpaceBlog.Migrations
                 Content = content,
                 Date = date,
                 Author = author
-
             };
 
             db.Articles.Add(article);

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-
-namespace SpaceBlog.Models
+﻿namespace SpaceBlog.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class ArticleCommentViewModel
     {
         [Required]

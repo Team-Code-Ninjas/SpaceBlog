@@ -95,7 +95,7 @@
                                     <li>@Html.ActionLink("Suspend", "Suspend", new { id = user.Id })</li>
                                 }
 
-                                @if (user.Status.ToString() == "Suspended") // No. Else does not work. 
+                                @if (user.Status.ToString() == "Suspended") 
                                 {
                                     <li>@Html.ActionLink("Activate", "Activate", new { id = user.Id })</li>
 	                            } 

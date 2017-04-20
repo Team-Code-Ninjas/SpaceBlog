@@ -10,6 +10,12 @@ using System.Web.Mvc;
 
 namespace SpaceBlog.Models
 {
+    using Microsoft.AspNet.Identity;
+    using SpaceBlog.Models;
+    using System;
+    using System.Net;
+    using System.Web.Mvc;
+
     public class CommentController : Controller
     {
         private BlogDBContext db = new BlogDBContext();
@@ -25,18 +31,24 @@ namespace SpaceBlog.Models
         public ActionResult Create(CommentViewModel commentViewModel)
         {
             if (!ModelState.IsValid)
-                //return PartialView("_CommentBox", commentViewModel);
+            {
+                /// return PartialView("_CommentBox", commentViewModel);
                 return RedirectToAction("Details", "Article", new { id = commentViewModel.ArticleId });
+            }
 
             var article = db.Articles.Find(commentViewModel.ArticleId);
+
             if (article == null)
+            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
                     $"Invalid article specified.");
+            }
 
             var author = db.Users.Find(commentViewModel.AuthorId);
             if (author == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
                     $"Invalid comment author specified.");
+            
 
             var comment = new Comment
             {
@@ -50,11 +62,6 @@ namespace SpaceBlog.Models
             db.SaveChanges();
 
             return RedirectToAction("Details", "Article", new { id = commentViewModel.ArticleId });
-        }
-
-        public ActionResult Create()
-        {
-            return View("_CommentBox");
         }
 
         // POST: Comments/Create

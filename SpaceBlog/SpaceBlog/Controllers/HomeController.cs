@@ -1,11 +1,11 @@
-﻿using System.Web.Mvc;
-using SpaceBlog.Models;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-
-namespace SpaceBlog.Controllers
+﻿namespace SpaceBlog.Controllers
 {
+    using SpaceBlog.Models;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
+
     public class HomeController : Controller
     {
         private readonly BlogDBContext db = new BlogDBContext();
@@ -45,7 +45,9 @@ namespace SpaceBlog.Controllers
         public ActionResult Contact(Contact contact)
         {
             if (!ModelState.IsValid)
+            {
                 return View(contact);
+            }
 
             db.Contacts.Add(contact);
             db.SaveChanges();

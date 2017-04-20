@@ -1,15 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using SpaceBlog.Models;
-
-namespace SpaceBlog.Controllers
+﻿namespace SpaceBlog.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Mvc;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin.Security;
+    using SpaceBlog.Models;
+
     [Authorize]
     public class ManageController : Controller
     {
@@ -52,7 +51,6 @@ namespace SpaceBlog.Controllers
             }
         }
 
-        //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
@@ -63,7 +61,7 @@ namespace SpaceBlog.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
+                : string.Empty;
 
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
@@ -197,7 +195,7 @@ namespace SpaceBlog.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Failed to verify phone");
+            ModelState.AddModelError(string.Empty, "Failed to verify phone");
             return View(model);
         }
 
@@ -294,7 +292,7 @@ namespace SpaceBlog.Controllers
             ViewBag.StatusMessage =
                 message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : message == ManageMessageId.Error ? "An error has occurred."
-                : "";
+                : string.Empty;
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user == null)
             {
@@ -362,7 +360,7 @@ namespace SpaceBlog.Controllers
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                ModelState.AddModelError(string.Empty, error);
             }
         }
 

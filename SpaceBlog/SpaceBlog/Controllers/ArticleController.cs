@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-
-namespace SpaceBlog.Models
+﻿namespace SpaceBlog.Models
 {
+    using Microsoft.AspNet.Identity;
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Validation;
+    using System.Linq;
+    using System.Net;
+    using System.Web;
+    using System.Web.Mvc;
+
     public class ArticleController : Controller
     {
         private BlogDBContext db = new BlogDBContext();
@@ -50,14 +50,24 @@ namespace SpaceBlog.Models
 
             ViewBag.ArticleId = id.Value;
 
-            var comments = db.Comments.Where(d => d.Article.Id.Equals(id.Value)).ToList();
+            var comments = db
+                .Comments
+                .Where(d => d.Article.Id.Equals(id.Value))
+                .ToList();
+
             ViewBag.Comments = comments;
 
-            var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
+            var ratings = db
+                .Articles
+                .SelectMany(a => a.Comments)
+                .Where(d => d.Article.Id.Equals(id.Value))
+                .ToList();
+
             ViewBag.Ratings = ratings;
 
-            //var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
-            /* if (ratings.Count() > 0)
+            /*
+            var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
+             if (ratings.Count() > 0)
              {
                  var ratingSum = ratings.Sum(d => d.Value);
                  ViewBag.RatingSum = ratingSum;
@@ -71,7 +81,10 @@ namespace SpaceBlog.Models
              }
             */
 
-            var isUserLoggedIn = User.Identity.GetUserId() != null;
+            var isUserLoggedIn = User
+                .Identity
+                .GetUserId() != null;
+
             ViewBag.IsUserLoggedIn = isUserLoggedIn;
 
             return View(article);
@@ -93,9 +106,17 @@ namespace SpaceBlog.Models
         {
             if (ModelState.IsValid)
             {
-                var currentUserId = HttpContext.User.Identity.GetUserId();
+                var currentUserId = HttpContext
+                    .User
+                    .Identity
+                    .GetUserId();
+
                 article.Content = HttpUtility.HtmlEncode(article.Content);
-                article.Author = db.Users.Find(currentUserId);
+
+                article.Author = db
+                    .Users
+                    .Find(currentUserId);
+
                 db.Articles.Add(article);
                 db.SaveChanges();
 
@@ -114,8 +135,15 @@ namespace SpaceBlog.Models
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var currentUserId = HttpContext.User.Identity.GetUserId();
-            var currentArticle = db.Articles.Include(a => a.Author).FirstOrDefault(a => a.Id == id);
+            var currentUserId = HttpContext
+                .User
+                .Identity
+                .GetUserId();
+
+            var currentArticle = db
+                .Articles
+                .Include(a => a.Author)
+                .FirstOrDefault(a => a.Id == id);
 
             if (currentArticle == null)
             {
@@ -160,8 +188,14 @@ namespace SpaceBlog.Models
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var currentUserId = HttpContext.User.Identity.GetUserId();
-            var currentArticle = db.Articles.Include(a => a.Author).FirstOrDefault(a => a.Id == id);
+            var currentUserId = HttpContext
+                .User.Identity
+                .GetUserId();
+
+            var currentArticle = db
+                .Articles
+                .Include(a => a.Author)
+                .FirstOrDefault(a => a.Id == id);
 
             if (currentArticle == null)
             {
@@ -186,6 +220,7 @@ namespace SpaceBlog.Models
             Article article = db.Articles.Find(id);
             db.Articles.Remove(article);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -205,12 +240,22 @@ namespace SpaceBlog.Models
         [ValidateAntiForgeryToken]
         public ActionResult PostComment(ArticleCommentViewModel articleComment)
         {
-            var article = db.Articles.SingleOrDefault(a => a.Id == articleComment.ArticleId);
-            if (article == null)
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            var article = db
+                .Articles
+                .SingleOrDefault(a => a.Id == articleComment.ArticleId);
 
-            var authorId = User.Identity.GetUserId();
-            var author = db.Users.FirstOrDefault(a => a.Id == authorId);
+            if (article == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var authorId = User
+                .Identity
+                .GetUserId();
+
+            var author = db
+                .Users
+                .FirstOrDefault(a => a.Id == authorId);
 
             var comment = new Comment
             {
@@ -228,7 +273,6 @@ namespace SpaceBlog.Models
                 AuthorId = authorId,
                 Value = articleComment.Rating
             };
-
 
             article.Ratings.Add(rating);
 
