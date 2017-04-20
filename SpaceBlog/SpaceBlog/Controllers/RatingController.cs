@@ -6,6 +6,7 @@
     public class RatingController : Controller
     {
         private readonly BlogDBContext db = new BlogDBContext();
+
         public ActionResult Index()
         {
             return View();

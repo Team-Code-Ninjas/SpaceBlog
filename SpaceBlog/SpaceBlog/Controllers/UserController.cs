@@ -31,6 +31,7 @@
             userModel.Id = user.Id;
             userModel.UserName = user.UserName;
             userModel.FullName = user.FullName;
+
             userModel.Articles = allArticles
                 .Where(b => b.Author == user)
                 .ToList();

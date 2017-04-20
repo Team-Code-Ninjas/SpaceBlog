@@ -45,7 +45,9 @@
         public ActionResult Contact(Contact contact)
         {
             if (!ModelState.IsValid)
+            {
                 return View(contact);
+            }
 
             db.Contacts.Add(contact);
             db.SaveChanges();
