@@ -1,17 +1,24 @@
 ﻿using Microsoft.AspNet.Identity;
-using SpaceBlog.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SpaceBlog.Controllers
+namespace SpaceBlog.Models
 {
     public class CommentController : Controller
     {
-        private readonly BlogDBContext _db = new BlogDBContext();
+        private BlogDBContext db = new BlogDBContext();
+
+        // GET: Comments
+        public ActionResult Index()
+        {
+            return View(db.Comments.ToList());
+        }
 
         [HttpPost]
         [Authorize]
@@ -21,13 +28,13 @@ namespace SpaceBlog.Controllers
                 //return PartialView("_CommentBox", commentViewModel);
                 return RedirectToAction("Details", "Article", new { id = commentViewModel.ArticleId });
 
-            var article = _db.Articles.Find(commentViewModel.ArticleId);
+            var article = db.Articles.Find(commentViewModel.ArticleId);
             if (article == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
                     $"Invalid article specified.");
 
-            var author = _db.Users.Find(User.Identity.GetUserId());
-            if (author ==  null)
+            var author = db.Users.Find(commentViewModel.AuthorId);
+            if (author == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
                     $"Invalid comment author specified.");
 
@@ -39,24 +46,102 @@ namespace SpaceBlog.Controllers
                 Content = commentViewModel.Content,
             };
 
-            _db.Comments.Add(comment);
-            _db.SaveChanges();
+            db.Comments.Add(comment);
+            db.SaveChanges();
 
             return RedirectToAction("Details", "Article", new { id = commentViewModel.ArticleId });
         }
 
-        [HttpDelete]
-        public ActionResult Delete(int? id)
+        public ActionResult Create()
         {
-            var commentToDelete = _db.Comments.Find(id);
-            if (commentToDelete == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
-                    $"Comment with id '{id}' does not exist");
+            return View("_CommentBox");
+        }
 
-            _db.Comments.Remove(commentToDelete);
-            _db.SaveChanges();
+        // POST: Comments/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "Id,Date,Content")] Comment comment)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Comments.Add(comment);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return RedirectToAction("Details", "Article");
+        //    return View(comment);
+        //}
+
+        // GET: Comments/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Comment comment = db.Comments
+                .Include(m => m.Author)
+                .Include(m => m.Article)
+                .ToList()
+                .SingleOrDefault(m => m.Id == id);
+                
+               ;
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+
+            var commentToDisplay = new CommentViewModel
+            {
+                ArticleId = comment.Article.Id,
+                AuthorId = comment.Author.Id,
+                Content = comment.Content
+            };
+            return View(commentToDisplay);
+        }
+
+        // POST: Comments/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(CommentViewModel comment)
+        {
+            if (!ModelState.IsValid)
+                return View(comment);
+
+            var commentToUpdate = db.Comments
+                .Include(m => m.Author)
+                .Include(m => m.Article)
+                .SingleOrDefault(m => m.Id == comment.Id);
+
+            if (commentToUpdate == null)
+                return HttpNotFound();
+            
+            commentToUpdate.Content = comment.Content;
+            commentToUpdate.Date = DateTime.Now;
+            db.Entry(commentToUpdate).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
+        // POST: Comments/Delete/5
+        public ActionResult Delete(int id)
+        {
+            Comment comment = db.Comments.Find(id);
+            db.Comments.Remove(comment);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

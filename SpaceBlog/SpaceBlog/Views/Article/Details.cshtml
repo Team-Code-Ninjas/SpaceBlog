@@ -66,7 +66,7 @@
                             comment.Author.UserName == User.Identity.Name)
                         {
                             <div>
-                                @Html.ActionLink("Edit", "Edit", null, new { @class = "btn btn-sm btn-primary" })
+                                @Html.ActionLink("Edit", "Edit", "Comment", new { id = comment.Id }, new { @class = "btn btn-sm btn-primary" })
                                 @Html.ActionLink("Delete", "Delete", "Comment", new { id = comment.Id }, new { @class = "btn btn-sm btn-danger" })
                             </div>
                         }
@@ -79,7 +79,7 @@
 
     @if (ViewBag.IsUserLoggedIn)
     {
-        @Html.Partial("_CommentBox", new CommentViewModel { ArticleId = Model.Id })
+        @Html.Partial("_CommentBox", new CommentViewModel { ArticleId = Model.Id, AuthorId = Model.AuthorId })
     }
     else
     {
