@@ -1,18 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-
-namespace SpaceBlog.Models
+﻿namespace SpaceBlog.Models
 {
-    using Microsoft.AspNet.Identity;
-    using SpaceBlog.Models;
     using System;
+    using System.Data.Entity;
+    using System.Linq;
     using System.Net;
     using System.Web.Mvc;
 
@@ -36,19 +26,23 @@ namespace SpaceBlog.Models
                 return RedirectToAction("Details", "Article", new { id = commentViewModel.ArticleId });
             }
 
-            var article = db.Articles.Find(commentViewModel.ArticleId);
+            var article = db
+                .Articles
+                .Find(commentViewModel.ArticleId);
 
             if (article == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
-                    $"Invalid article specified.");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"Invalid article specified.");
             }
 
-            var author = db.Users.Find(commentViewModel.AuthorId);
+            var author = db
+                .Users
+                .Find(commentViewModel.AuthorId);
+
             if (author == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
-                    $"Invalid comment author specified.");
-            
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"Invalid comment author specified.");
+            }
 
             var comment = new Comment
             {
@@ -88,13 +82,14 @@ namespace SpaceBlog.Models
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comment = db.Comments
+
+            Comment comment = db
+                .Comments
                 .Include(m => m.Author)
                 .Include(m => m.Article)
                 .ToList()
                 .SingleOrDefault(m => m.Id == id);
                 
-               ;
             if (comment == null)
             {
                 return HttpNotFound();
@@ -106,6 +101,7 @@ namespace SpaceBlog.Models
                 AuthorId = comment.Author.Id,
                 Content = comment.Content
             };
+
             return View(commentToDisplay);
         }
 
@@ -115,20 +111,26 @@ namespace SpaceBlog.Models
         public ActionResult Edit(CommentViewModel comment)
         {
             if (!ModelState.IsValid)
+            {
                 return View(comment);
+            }
 
-            var commentToUpdate = db.Comments
+            var commentToUpdate = db
+                .Comments
                 .Include(m => m.Author)
                 .Include(m => m.Article)
                 .SingleOrDefault(m => m.Id == comment.Id);
 
             if (commentToUpdate == null)
+            {
                 return HttpNotFound();
+            }
             
             commentToUpdate.Content = comment.Content;
             commentToUpdate.Date = DateTime.Now;
             db.Entry(commentToUpdate).State = EntityState.Modified;
             db.SaveChanges();
+
             return RedirectToAction("Index");
 
         }
@@ -136,9 +138,13 @@ namespace SpaceBlog.Models
         // POST: Comments/Delete/5
         public ActionResult Delete(int id)
         {
-            Comment comment = db.Comments.Find(id);
+            Comment comment = db
+                .Comments
+                .Find(id);
+
             db.Comments.Remove(comment);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -148,6 +154,7 @@ namespace SpaceBlog.Models
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

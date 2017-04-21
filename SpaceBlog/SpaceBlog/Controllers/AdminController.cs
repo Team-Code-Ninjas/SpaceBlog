@@ -14,7 +14,8 @@
         // GET: Admin/Index
         public ActionResult Index()
         {
-            var userViewModels = db.Users
+            var userViewModels = db
+                .Users
                 .Select(UserToUserViewModel)
                 .ToArray();
 
@@ -29,7 +30,9 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var user = db.Users.Find(id);
+            var user = db
+                .Users
+                .Find(id);
 
             /*
             The Administartor should not be able to suspend himself
@@ -46,7 +49,10 @@
         [HttpPost, ActionName("Suspend")]
         public ActionResult SuspendConfirmed(string id)
         {
-            var user = db.Users.Find(id);
+            var user = db
+                .Users
+                .Find(id);
+
             user.Suspended = true;
             db.SaveChanges();
 
@@ -61,7 +67,9 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var user = db.Users.Find(id);
+            var user = db
+                .Users
+                .Find(id);
 
             return View(user);
         }
@@ -70,7 +78,10 @@
         [HttpPost, ActionName("Activate")]
         public ActionResult ActivateConfirmed(string id)
         {
-            var user = db.Users.Find(id);
+            var user = db
+                .Users
+                .Find(id);
+
             user.Suspended = false;
             db.SaveChanges();
 
@@ -79,12 +90,21 @@
 
         public ActionResult Details(string id)
         {
-            var user = db.Users.Find(id);
+            var user = db
+                .Users
+                .Find(id);
 
             var userModel = new UserViewModel();
 
-            var allArticles = db.Articles.Include(a => a.Author).ToList();
-            var allComments = db.Comments.Include(a => a.Author).ToList();
+            var allArticles = db
+                .Articles
+                .Include(a => a.Author)
+                .ToList();
+
+            var allComments = db
+                .Comments
+                .Include(a => a.Author)
+                .ToList();
 
             userModel.Id = user.Id;
             userModel.UserName = user.UserName;
