@@ -1,18 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-
-namespace SpaceBlog.Models
+﻿namespace SpaceBlog.Models
 {
-    using Microsoft.AspNet.Identity;
-    using SpaceBlog.Models;
     using System;
+    using System.Data.Entity;
+    using System.Linq;
     using System.Net;
     using System.Web.Mvc;
 
@@ -64,23 +54,6 @@ namespace SpaceBlog.Models
             return RedirectToAction("Details", "Article", new { id = commentViewModel.ArticleId });
         }
 
-        // POST: Comments/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "Id,Date,Content")] Comment comment)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Comments.Add(comment);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(comment);
-        //}
-
         // GET: Comments/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -129,17 +102,19 @@ namespace SpaceBlog.Models
             commentToUpdate.Date = DateTime.Now;
             db.Entry(commentToUpdate).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction($"../Article/Details/{comment.ArticleId}");
 
         }
 
         // POST: Comments/Delete/5
         public ActionResult Delete(int id)
         {
-            Comment comment = db.Comments.Find(id);
+            Comment comment = db.Comments.Include(c => c.Article).SingleOrDefault(c => c.Id == id);
+            var articleId = comment.Article.Id;
             db.Comments.Remove(comment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction($"../Article/Details/{articleId}");
+
         }
 
         protected override void Dispose(bool disposing)
