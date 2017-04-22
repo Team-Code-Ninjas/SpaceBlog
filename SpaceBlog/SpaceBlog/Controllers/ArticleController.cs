@@ -34,7 +34,8 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Article article = db.Articles
+            Article article = db
+                .Articles
                 .Include(a => a.Author)
                 .Include(a => a.Comments)
                 .Include("Comments.Author")
@@ -139,17 +140,23 @@
                 .Identity
                 .GetUserId();
 
+
             var currentArticle = db
                 .Articles
                 .Include(a => a.Author)
                 .FirstOrDefault(a => a.Id == id);
+
+            var isCurrentUserId = currentUserId == 
+                currentArticle.Author.Id ||
+                User.IsInRole("Administrators") ||
+                User.IsInRole("Moderators");
 
             if (currentArticle == null)
             {
                 return HttpNotFound();
             }
 
-            if (currentUserId == currentArticle.Author.Id || User.IsInRole("Administrators") || User.IsInRole("Moderators"))
+            if (isCurrentUserId)
             {
                 currentArticle.Content = HttpUtility.HtmlDecode(currentArticle.Content);
 
@@ -196,12 +203,17 @@
                 .Include(a => a.Author)
                 .FirstOrDefault(a => a.Id == id);
 
+            var isCurrentUserId = currentUserId ==
+                currentArticle.Author.Id ||
+                User.IsInRole("Administrators") ||
+                User.IsInRole("Moderators");
+
             if (currentArticle == null)
             {
                 return HttpNotFound();
             }
 
-            if (currentUserId == currentArticle.Author.Id || User.IsInRole("Administrators") || User.IsInRole("Moderators"))
+            if (isCurrentUserId)
             {
                 currentArticle.Content = HttpUtility.HtmlDecode(currentArticle.Content);
                 return View(currentArticle);
