@@ -1,5 +1,6 @@
 ﻿namespace SpaceBlog.Models
 {
+    using Microsoft.AspNet.Identity;
     using System;
     using System.Data.Entity;
     using System.Linq;
@@ -35,9 +36,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, $"Invalid article specified.");
             }
 
-            var author = db
-                .Users
-                .Find(commentViewModel.AuthorId);
+            var author = db.Users.Find(User.Identity.GetUserId());
 
             if (author == null)
             {
