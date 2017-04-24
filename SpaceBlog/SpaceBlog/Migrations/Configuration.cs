@@ -93,7 +93,7 @@ namespace SpaceBlog.Migrations
             {
                 PasswordValidator = new PasswordValidator
                 {
-                    RequiredLength = 1,
+                    RequiredLength = 6,
                     RequireNonLetterOrDigit = false,
                     RequireDigit = false,
                     RequireLowercase = false,
