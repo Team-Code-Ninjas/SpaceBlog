@@ -171,7 +171,7 @@
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "Id,Title,Content")] Article article)
+        public ActionResult Edit([Bind(Include = "Id,Title,Content,AuthorId")] Article article)
         {
             if (ModelState.IsValid)
             {
