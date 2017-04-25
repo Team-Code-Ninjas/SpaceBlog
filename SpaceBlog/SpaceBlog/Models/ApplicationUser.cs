@@ -16,7 +16,7 @@
             this.DateRegistered = DateTime.Now;
         }
 
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "The Full Name field is required")]
         public string FullName { get; set; }
 
         [Required]
