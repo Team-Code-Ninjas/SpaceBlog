@@ -37,115 +37,113 @@
 </div>
    
 <div class="container">
-    <h3>Article Created</h3>
-    <table id="articleTable" class="table table-striped table-bordered table-responsive">
-        <thead>
-            <tr>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Content
-                </th>
-                <th>
-                    Action
-                </th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var article in Model.Articles)
-            {
+    <div class="col-sm-7">
+        <h3>Article Created</h3>
+        <table id="articleTable" class="table table-striped table-bordered table-responsive">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelitem => article.Title)
-                    </td>
-
-                    <td>
-                        @Html.Raw(Utils.CutHtmlText(Utils.CutImageTag(HttpUtility.HtmlDecode(article.Content)), 50))
-                    </td>
-
-                     <td>
-                        <div class="dropdown">
-
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                               More
-                                <span class="caret"></span>
-                            </button>
-
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Edit", "../Article/Edit", new { id = article.Id })</li>
-                                <li>@Html.ActionLink("Details", "../Article/Details", new { id = article.Id })</li>
-                                <li>@Html.ActionLink("Delete", "../Article/Delete", new { id = article.Id })</li>
-                            </ul>
-
-                        </div>                           
-                    </td>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Content
+                    </th>
+                    <th>
+                        Action
+                    </th>
                 </tr>
-            }
-        </tbody>
+            </thead>
 
-    </table>
-    <hr />
-    <br />
-    <br />
+            <tbody>
+                @foreach (var article in Model.Articles)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelitem => article.Title)
+                        </td>
+
+                        <td>
+                            @Html.Raw(Utils.CutHtmlText(Utils.CutImageTag(HttpUtility.HtmlDecode(article.Content)), 50))
+                        </td>
+
+                        <td>
+                            <div class="dropdown">
+
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    More
+                                    <span class="caret"></span>
+                                </button>
+
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Edit", "../Article/Edit", new { id = article.Id })</li>
+                                    <li>@Html.ActionLink("Details", "../Article/Details", new { id = article.Id })</li>
+                                    <li>@Html.ActionLink("Delete", "../Article/Delete", new { id = article.Id })</li>
+                                </ul>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        <hr />
+        <br />
+        <br />
+    </div>
 </div> 
 
-<div class="container" width="500">
-    <h3>Comments Created</h3>
-    <table id="comentTable" class="table table-striped table-bordered table-responsive">
-        <thead>
-            <tr>
-                <th>
-                    Comments
-                </th>  
-                
-                <th>
-                    Actions
-                </th>                  
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var comment in Model.Comments)
-            {
+<div class="container">
+    <div class="col-sm-12">
+        <h3>Comments Created</h3>
+        <table id="comentTable" class="table table-striped table-bordered table-responsive">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelitem => comment.Content)
-                    </td>
+                    <th>
+                        Comments
+                    </th>
 
-                    <td>
-                        <div class="dropdown" >
-
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                               More
-                                <span class="caret"></span>
-                            </button>
-
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Edit", "/", new { id = comment.Id })</li>
-                                <li>@Html.ActionLink("Delete", "/", new { id = comment.Id })</li>
-                            </ul>
-
-                        </div>                           
-                    </td>
+                    <th>
+                        Actions
+                    </th>
                 </tr>
-            }
-       </tbody>
-</table>
-</div> 
+            </thead>
+
+            <tbody>
+                @foreach (var comment in Model.Comments)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelitem => comment.Content)
+                        </td>
+
+                        <td>
+                            <div class="dropdown">
+
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    More
+                                    <span class="caret"></span>
+                                </button>
+
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Edit", "/", new { id = comment.Id })</li>
+                                    <li>@Html.ActionLink("Delete", "/", new { id = comment.Id })</li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div> 
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/datatables")
     <script>
         $(document).ready(function () {
             $('#articleTable').DataTable();
-        });
-    </script>
-
-<script>
-        $(document).ready(function () {
             $('#comentTable').DataTable();
         });
-</script>
+    </script>
 }
