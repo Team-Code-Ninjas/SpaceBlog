@@ -155,7 +155,6 @@ hr.small {
 /*End Navbar*/
 /*Intro Header*/
 .intro-header {
-  background-color: #777777;
   background: no-repeat center center;
   background-attachment: scroll;
   -webkit-background-size: cover;
@@ -168,11 +167,18 @@ hr.small {
   padding: 100px 0 200px;
   color: white;
 }
-@media only screen and (min-width: 768px) {
-  .intro-header .site-heading,
-  .intro-header .post-heading {
-    padding: 100px 0;
-  }
+/*Iphone 6 and Iphone 6 plus*/
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) {
+    .intro-header .site-heading {
+      padding: 100px 0 65px;
+      color: white;
+    }
+}
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+      .intro-header .site-heading {
+      padding: 100px 0 65px;
+      color: white;
+    }
 }
 .intro-header .site-heading,
 .details-header .post-heading {
@@ -206,6 +212,16 @@ hr.small {
 /*Logo*/
 .container .site-heading .logo {
     height: 300px;
+}
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) {
+    .container .site-heading .logo {
+        height: 200px;
+    }    
+}
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+    .container .site-heading .logo {
+        height: 170px;
+    }
 }
 /*End Logo*/
 .container .meta-post-content {
