@@ -56,41 +56,47 @@
         <tbody>
             @foreach (var article in Model.Articles)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelitem => article.Title)
-                    </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelitem => article.Title)
+                </td>
 
-                    <td>
-                        @Html.Raw(Utils.CutHtmlText(Utils.CutImageTag(HttpUtility.HtmlDecode(article.Content)), 50))
-                    </td>
+                <td>
+                    @Html.Raw(Utils.CutHtmlText(Utils.CutImageTag(HttpUtility.HtmlDecode(article.Content)), 50))
+                </td>
 
-                    <td>
-                        <div class="dropdown">
+                <td>
+                    <div class="dropdown">
 
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                More
-                                <span class="caret"></span>
-                            </button>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            More
+                            <span class="caret"></span>
+                        </button>
 
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Edit", "../Article/Edit", new
+                        <ul class="dropdown-menu">
+                            <li>
+                                @Html.ActionLink("Edit", "../Article/Edit", new
                                {
                                    id = article.Id
-                               })</li>
-                                <li>@Html.ActionLink("Details", "../Article/Details", new
+                               })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Details", "../Article/Details", new
                                {
                                    id = article.Id
-                               })</li>
-                                <li>@Html.ActionLink("Delete", "../Article/Delete", new
+                               })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Delete", "../Article/Delete", new
                                {
                                    id = article.Id
-                               })</li>
-                            </ul>
+                               })
+                </li>
+            </ul>
 
-                        </div>
-                    </td>
-                </tr>
+        </div>
+    </td>
+</tr>
             }
         </tbody>
 
@@ -118,33 +124,37 @@
         <tbody>
             @foreach (var comment in Model.Comments)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelitem => comment.Content)
-                    </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelitem => comment.Content)
+                </td>
 
-                    <td>
-                        <div class="dropdown">
+                <td>
+                    <div class="dropdown">
 
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                More
-                                <span class="caret"></span>
-                            </button>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            More
+                            <span class="caret"></span>
+                        </button>
 
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Edit", "/", new
+                        <ul class="dropdown-menu">
+                            <li>
+                                @Html.ActionLink("Edit", "/", new
                                {
                                    id = comment.Id
-                               })</li>
-                                <li>@Html.ActionLink("Delete", "/", new
+                               })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Delete", "/", new
                                {
                                    id = comment.Id
-                               })</li>
-                            </ul>
+                               })
+                    </li>
+                </ul>
 
-                        </div>
-                    </td>
-                </tr>
+            </div>
+        </td>
+    </tr>
             }
         </tbody>
     </table>
