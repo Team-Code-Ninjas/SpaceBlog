@@ -126,8 +126,8 @@
                                 </button>
 
                                 <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Edit", "/", new { id = comment.Id })</li>
-                                    <li>@Html.ActionLink("Delete", "/", new { id = comment.Id })</li>
+                                    <li>@Html.ActionLink("Edit", "../Comment/Edit", new { id = comment.Id })</li>
+                                    <li>@Html.ActionLink("Delete", "../Comment/Delete", new { id = comment.Id })</li>
                                 </ul>
                             </div>
                         </td>

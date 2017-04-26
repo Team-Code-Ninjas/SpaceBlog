@@ -75,28 +75,20 @@
 
                         <ul class="dropdown-menu">
                             <li>
-                                @Html.ActionLink("Edit", "../Article/Edit", new
-                               {
-                                   id = article.Id
-                               })
-                        </li>
-                        <li>
-                            @Html.ActionLink("Details", "../Article/Details", new
-                               {
-                                   id = article.Id
-                               })
-                    </li>
-                    <li>
-                        @Html.ActionLink("Delete", "../Article/Delete", new
-                               {
-                                   id = article.Id
-                               })
-                </li>
-            </ul>
+                                @Html.ActionLink("Edit", "../Article/Edit", new { id = article.Id })
+                            </li>
 
-        </div>
-    </td>
-</tr>
+                            <li>
+                                @Html.ActionLink("Details", "../Article/Details", new { id = article.Id })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink("Delete", "../Article/Delete", new { id = article.Id })
+                            </li>
+                        </ul>
+                    </div>
+               </td>
+            </tr>
             }
         </tbody>
 
@@ -139,22 +131,16 @@
 
                         <ul class="dropdown-menu">
                             <li>
-                                @Html.ActionLink("Edit", "/", new
-                               {
-                                   id = comment.Id
-                               })
-                        </li>
-                        <li>
-                            @Html.ActionLink("Delete", "/", new
-                               {
-                                   id = comment.Id
-                               })
-                    </li>
-                </ul>
+                                @Html.ActionLink("Edit", "../Comment/Edit", new { id = comment.Id })
+                            </li>
 
-            </div>
-        </td>
-    </tr>
+                            <li>
+                                @Html.ActionLink("Delete", "../Comment/Delete", new { id = comment.Id })
+                            </li>
+                         </ul>
+                    </div>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

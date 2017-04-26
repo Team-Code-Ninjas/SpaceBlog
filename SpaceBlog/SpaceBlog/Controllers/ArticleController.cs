@@ -179,7 +179,7 @@
                 db.Entry(article).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction($"Details/{article.Id}");
             }
 
             return View(article);
