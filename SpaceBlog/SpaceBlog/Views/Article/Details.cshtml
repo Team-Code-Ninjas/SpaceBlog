@@ -77,7 +77,7 @@
         </div>
     </aside>
 
-    @if (ViewBag.IsUserLoggedIn)
+    @if (User.Identity.IsAuthenticated)
     {
         @Html.Partial("_CommentBox", new CommentViewModel { ArticleId = Model.Id, AuthorId = Model.AuthorId })
     }

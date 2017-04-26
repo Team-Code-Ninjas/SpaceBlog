@@ -57,36 +57,6 @@
 
             ViewBag.Comments = comments;
 
-            var ratings = db
-                .Articles
-                .SelectMany(a => a.Comments)
-                .Where(d => d.Article.Id.Equals(id.Value))
-                .ToList();
-
-            ViewBag.Ratings = ratings;
-
-            /*
-            var ratings = db.Articles.SelectMany(a => a.Comments).Where(d => d.Article.Id.Equals(id.Value)).ToList();
-             if (ratings.Count() > 0)
-             {
-                 var ratingSum = ratings.Sum(d => d.Value);
-                 ViewBag.RatingSum = ratingSum;
-                 var ratingCount = ratings.Count();
-                 ViewBag.RatingCount = ratingCount;
-             }
-             else
-             {
-                 ViewBag.RatingSum = 0;
-                 ViewBag.RatingCount = 0;
-             }
-            */
-
-            var isUserLoggedIn = User
-                .Identity
-                .GetUserId() != null;
-
-            ViewBag.IsUserLoggedIn = isUserLoggedIn;
-
             return View(article);
         }
 
@@ -146,7 +116,7 @@
                 .Include(a => a.Author)
                 .FirstOrDefault(a => a.Id == id);
 
-            var isCurrentUserId = currentUserId == 
+            var isAuthenticatedForTheAction = currentUserId == 
                 currentArticle.Author.Id ||
                 User.IsInRole("Administrators") ||
                 User.IsInRole("Moderators");
@@ -156,14 +126,13 @@
                 return HttpNotFound();
             }
 
-            if (isCurrentUserId)
+            if (!isAuthenticatedForTheAction)
             {
-                currentArticle.Content = HttpUtility.HtmlDecode(currentArticle.Content);
-
-                return View(currentArticle);
+                return RedirectToAction("Index"); // should display "You are not authorized to do that" view
             }
 
-            return RedirectToAction("Index"); // should display "You are not authorized to do that" view
+            currentArticle.Content = HttpUtility.HtmlDecode(currentArticle.Content);
+            return View(currentArticle);
         }
 
         // POST: Articles/Edit/5
@@ -203,7 +172,7 @@
                 .Include(a => a.Author)
                 .FirstOrDefault(a => a.Id == id);
 
-            var isCurrentUserId = currentUserId ==
+            var isAuthenticatedForTheAction = currentUserId ==
                 currentArticle.Author.Id ||
                 User.IsInRole("Administrators") ||
                 User.IsInRole("Moderators");
@@ -213,13 +182,13 @@
                 return HttpNotFound();
             }
 
-            if (isCurrentUserId)
+            if (!isAuthenticatedForTheAction)
             {
-                currentArticle.Content = HttpUtility.HtmlDecode(currentArticle.Content);
-                return View(currentArticle);
+                return RedirectToAction("Index"); // should display "You are not authorized to do that" view
             }
 
-            return RedirectToAction("Index"); // should display "You are not authorized to do that" view
+            currentArticle.Content = HttpUtility.HtmlDecode(currentArticle.Content);
+            return View(currentArticle);
         }
 
         // POST: Articles/Delete/5
