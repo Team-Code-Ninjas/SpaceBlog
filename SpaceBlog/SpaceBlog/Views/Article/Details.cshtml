@@ -133,16 +133,20 @@
 
         var elapsed = current - date;
 
-        if (elapsed < msPerMinute) {
+        if (elapsed < msPerMinute)
+        {
             return Math.round(elapsed / 1000) + ' seconds ago';
         }
-        else if (elapsed < msPerHour) {
+        else if (elapsed < msPerHour)
+        {
             return Math.round(elapsed / msPerMinute) + ' minutes ago';
         }
-        else if (elapsed < msPerDay ) {
+        else if (elapsed < msPerDay )
+        {
             return Math.round(elapsed / msPerHour ) + ' hours ago';
         }
-        else if (elapsed < msPerMonth) {
+        else if (elapsed < msPerMonth)
+        {
             return 'approximately ' + Math.round(elapsed / msPerDay) + ' days ago';
         }
         else if (elapsed < msPerYear) {
@@ -153,7 +157,8 @@
         }
     }
 
-    $(function(){
+    $(function()
+    {
         $('.postedDate').each(function() {
             $(this).text(timeDifference($(this).text()))
         });
