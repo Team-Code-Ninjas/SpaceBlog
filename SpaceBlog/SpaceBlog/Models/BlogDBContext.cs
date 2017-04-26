@@ -11,8 +11,6 @@
 
         public virtual DbSet<Contact> Contacts { get; set; }
 
-        public virtual DbSet<Rating> Ratings { get; set; }
-
         public BlogDBContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

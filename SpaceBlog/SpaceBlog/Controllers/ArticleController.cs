@@ -235,63 +235,6 @@
             return RedirectToAction("Index");
         }
 
-        [Authorize]
-        public ActionResult Comment(int id)
-        {
-            var articleCommentViewModel = new ArticleCommentViewModel
-            {
-                ArticleId = id
-            };
-
-            return View(articleCommentViewModel);
-        }
-
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult PostComment(ArticleCommentViewModel articleComment)
-        {
-            var article = db
-                .Articles
-                .SingleOrDefault(a => a.Id == articleComment.ArticleId);
-
-            if (article == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            var authorId = User
-                .Identity
-                .GetUserId();
-
-            var author = db
-                .Users
-                .FirstOrDefault(a => a.Id == authorId);
-
-            var comment = new Comment
-            {
-                Author = author,
-                Content = articleComment.Comment,
-                Date = DateTime.Now,
-                Article = article
-            };
-
-            article.Comments.Add(comment);
-
-            var rating = new Rating()
-            {
-                ArticleId = articleComment.ArticleId,
-                AuthorId = authorId,
-                Value = articleComment.Rating
-            };
-
-            article.Ratings.Add(rating);
-
-            db.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

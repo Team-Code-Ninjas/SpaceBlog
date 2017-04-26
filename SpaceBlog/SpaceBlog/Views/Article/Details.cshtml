@@ -83,41 +83,9 @@
     }
     else
     {
-        <p>You're not logged in please <a href="/Account/Login">log in</a></p>
+        <p>You need to <a href="/Account/Login">log in</a> to post comments </p>
     }
 </div>
-
-@{
-    var comments = (IEnumerable<SpaceBlog.Models.Comment>)ViewBag.Comments;
-    var ratingSum = ViewBag.RatingSum;
-    var ratingCount = ViewBag.RatingCount;
-
-    decimal rating = 0;
-
-    if (ratingCount > 0)
-    {
-        rating = (ratingSum / ratingCount);
-    }
-
-    var totalRating = decimal.Parse(rating.ToString());
-}
-
-<hr />
-
-<script>
-    function SCRate()
-    {
-        for (var i = 1; i <= @totalRating; i++)
-        {
-            $("#sRate" + i).attr('class', 'starGlowN');
-        }
-    }
-
-    $(function()
-    {
-        SCRate();
-    });
-</script>
 
 <script type="text/javascript">
     function timeDifference(date) {

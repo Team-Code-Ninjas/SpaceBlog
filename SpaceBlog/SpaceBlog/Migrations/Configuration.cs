@@ -49,29 +49,6 @@ namespace SpaceBlog.Migrations
                 db.SaveChanges();
             }
 
-            if (!db.Ratings.Any())
-            {
-                var ratingAuthorId = db.Users.First().Id;
-                var ratingValue = 4;
-                var articleId = db.Articles.First().Id;
-
-                CreateRating(db, ratingAuthorId, ratingValue, articleId);
-            }
-
-            db.SaveChanges();
-        }
-
-        private void CreateRating(BlogDBContext db, string userID, decimal ratingValue, int articleId)
-        {
-            var rating = new Rating()
-            {
-                AuthorId = userID,
-                Value = ratingValue,
-                ArticleId = articleId
-            };
-
-            db.Ratings.Add(rating);
-
             db.SaveChanges();
         }
 
