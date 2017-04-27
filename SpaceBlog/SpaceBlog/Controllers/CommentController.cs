@@ -58,6 +58,7 @@
         }
 
         // GET: Comments/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,6 +78,18 @@
                 return HttpNotFound();
             }
 
+            var currentUserId = User.Identity.GetUserId();
+
+            var isAuthenticatedForTheAction = currentUserId ==
+                comment.Author.Id ||
+                User.IsInRole("Administrators") ||
+                User.IsInRole("Moderators");
+
+            if (!isAuthenticatedForTheAction)
+            {
+               return RedirectToAction($"Details/{comment.Article.Id}", "Article"); // should display "You are not authorized to do that" view
+            }
+
             var commentToDisplay = new CommentViewModel
             {
                 ArticleId = comment.Article.Id,
@@ -89,6 +102,7 @@
 
         // POST: Comments/Edit/5
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CommentViewModel comment)
         {
@@ -117,15 +131,32 @@
         }
 
         // POST: Comments/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             Comment comment = db
                 .Comments
                 .Include(c => c.Article)
+                .Include(c => c.Author)
+                .ToList()
                 .SingleOrDefault(c => c.Id == id);
+
+            var currentUserId = User.Identity.GetUserId();
+
+            var isAuthenticatedForTheAction = currentUserId ==
+                comment.Author.Id ||
+                User.IsInRole("Administrators") ||
+                User.IsInRole("Moderators");
+
+            if (!isAuthenticatedForTheAction)
+            {
+                return RedirectToAction($"Details/{comment.Article.Id}", "Article"); // should display "You are not authorized to do that" view
+            }
+
             var articleId = comment.Article.Id;
             db.Comments.Remove(comment);
             db.SaveChanges();
+
             return RedirectToAction($"../Article/Details/{articleId}");
 
         }
