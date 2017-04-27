@@ -19,11 +19,11 @@ namespace SpaceBlog.Migrations
         {
             if (!db.Users.Any())
             {
-                CreateUser(db, "a@a.com", "Gosho", "123456");
+                CreateUser(db, "georgi@gmail.com", "Georgi", "123456");
                 CreateUser(db, "alex@gmail.com", "Alexander", "123456");
                 CreateUser(db, "lubima@gmail.com", "Lubima", "123456");
+                CreateUser(db, "goran@gmail.com", "Goran", "123456");
                 CreateUser(db, "admin@gmail.com", "Admin Adminov", "123456");
-             
 
                 db.SaveChanges();
             }
@@ -34,6 +34,7 @@ namespace SpaceBlog.Migrations
                 CreateRole(db, "Moderators");
 
                 AddUserToRole(db, "admin@gmail.com", "Administrators");
+                AddUserToRole(db, "alex@gmail.com", "Moderators");
 
                 db.SaveChanges();
             }
