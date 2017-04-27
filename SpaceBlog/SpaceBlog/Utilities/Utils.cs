@@ -58,11 +58,17 @@
             }
         }
 
-        public static string CutImageTag(string imageTag)
+        public static string CutTags(string content)
         {
-            ///var regex = new Regex("<img.*?>");
-            var newText = Regex.Replace(imageTag, "<img.*?>", "").Trim();
-            newText = Regex.Replace(newText, @"<iframe.*><\/ iframe >", "").Trim();
+            var newText = Regex.Replace(content, "<img.*?>", "(image) ", RegexOptions.Singleline);
+            newText = Regex.Replace(newText, @"<iframe.*?>.*?<\/iframe>", "(video) ", RegexOptions.Singleline);
+            newText = Regex.Replace(newText, "<br />", " ", RegexOptions.Singleline);
+            newText = Regex.Replace(newText, "<table.*?>.*?</table>", "(table) ", RegexOptions.Singleline);
+            newText = Regex.Replace(newText, "<div.*?>.*?</div>", "", RegexOptions.Singleline);
+            newText = Regex.Replace(newText, "<p.*?>", "", RegexOptions.Singleline);
+            newText = Regex.Replace(newText, "</p>", "", RegexOptions.Singleline);
+            newText = Regex.Replace(newText, "<ul.*?>.*?</ul>", "", RegexOptions.Singleline);
+            newText = Regex.Replace(newText, "<ol.*?>.*?</ol>", "", RegexOptions.Singleline);
 
             return newText;
         }
