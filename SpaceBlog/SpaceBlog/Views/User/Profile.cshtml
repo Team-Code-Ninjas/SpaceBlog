@@ -63,7 +63,7 @@
                         </td>
 
                         <td>
-                            @Html.Raw(Utils.CutHtmlText(Utils.CutImageTag(HttpUtility.HtmlDecode(article.Content)), 50))
+                            @Html.Raw(Utils.CutHtmlText(Utils.CutTags(HttpUtility.HtmlDecode(article.Content)), 50))
                         </td>
 
                         <td>
