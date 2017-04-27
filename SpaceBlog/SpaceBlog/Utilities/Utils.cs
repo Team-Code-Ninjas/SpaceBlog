@@ -61,7 +61,8 @@
         public static string CutImageTag(string imageTag)
         {
             ///var regex = new Regex("<img.*?>");
-            var newText = Regex.Replace(imageTag, "<img.*?>", " (image) ");
+            var newText = Regex.Replace(imageTag, "<img.*?>", "").Trim();
+            newText = Regex.Replace(newText, @"<iframe.*><\/ iframe >", "").Trim();
 
             return newText;
         }

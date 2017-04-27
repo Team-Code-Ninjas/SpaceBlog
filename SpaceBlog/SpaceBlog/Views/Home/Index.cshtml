@@ -8,10 +8,13 @@
 @Html.Partial("_JumbotronPartial")
 
 <div class="container body-content">
+
+    <h1 style="text-align:center">Recent Articles:</h1>
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             @foreach (var item in Model)
             {
+                <hr />
                 <div class="post-preview">
                     <a href="/../Article/Details/@item.Id">
                         <h2 class="post-title">
@@ -26,7 +29,6 @@
                     </div>
                     <p class="post-meta">Posted by @(item.Author.FullName != null ? item.Author.FullName : "anonymous") on @item.Date.</p>
                 </div>
-                <hr>
             }
         </div>
     </div>
