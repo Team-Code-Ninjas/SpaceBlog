@@ -12,14 +12,18 @@
 
         public ActionResult Index()
         {
-            return View(db.Articles.Include(a => a.Author).ToList().Select(x => new Article
+            var articlesToShow = db.Articles.Include(a => a.Author).ToList().Select(x => new Article
             {
                 Id = x.Id,
                 Content = HttpUtility.HtmlDecode(x.Content),
                 Date = x.Date,
                 Title = x.Title,
                 Author = x.Author
-            }));
+            });
+
+            return View(articlesToShow
+                .OrderByDescending(x=>x.Date)
+                .Take(3));
         }
 
         public ActionResult About()
