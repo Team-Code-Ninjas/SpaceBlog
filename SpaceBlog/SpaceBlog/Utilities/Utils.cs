@@ -60,15 +60,15 @@
 
         public static string CutTags(string content)
         {
-            var newText = Regex.Replace(content, "<img.*?>", "(image) ", RegexOptions.Singleline);
-            newText = Regex.Replace(newText, @"<iframe.*?>.*?<\/iframe>", "(video) ", RegexOptions.Singleline);
-            newText = Regex.Replace(newText, "<br />", " ", RegexOptions.Singleline);
-            newText = Regex.Replace(newText, "<table.*?>.*?</table>", "(table) ", RegexOptions.Singleline);
-            newText = Regex.Replace(newText, "<div.*?>.*?</div>", "", RegexOptions.Singleline);
-            newText = Regex.Replace(newText, "<p.*?>", "", RegexOptions.Singleline);
-            newText = Regex.Replace(newText, "</p>", "", RegexOptions.Singleline);
-            newText = Regex.Replace(newText, "<ul.*?>.*?</ul>", "", RegexOptions.Singleline);
-            newText = Regex.Replace(newText, "<ol.*?>.*?</ol>", "", RegexOptions.Singleline);
+            var newText = Regex.Replace(content, "<img.*>", "(image) ", RegexOptions.Singleline);
+            newText = Regex.Replace(newText, @"<iframe.*>.*<\/iframe>", "(video) ", RegexOptions.Singleline);
+            //newText = Regex.Replace(newText, "<table.*?>.*?</table>", "(table) ", RegexOptions.Singleline);
+            //newText = Regex.Replace(newText, "<br />", " ", RegexOptions.Singleline);
+            //newText = Regex.Replace(newText, "<div.*?>.*?</div>", "", RegexOptions.Singleline);
+            //newText = Regex.Replace(newText, "<p.*?>", "", RegexOptions.Singleline);
+            //newText = Regex.Replace(newText, "</p>", "", RegexOptions.Singleline);
+            //newText = Regex.Replace(newText, "<ul.*?>.*?</ul>", "", RegexOptions.Singleline);
+            //newText = Regex.Replace(newText, "<ol.*?>.*?</ol>", "", RegexOptions.Singleline);
 
             return newText;
         }
